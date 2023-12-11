@@ -2,7 +2,7 @@
 
 _In partial fulfilment of the requirements for SE6005 Capstone Project, a core subject under Master of Science in Cyber Security (MSCS) in Nanyang Technological University (NTU), Singapore._
 
-This is a CLI chatbot written using TypeScript in a Node.js environment.
+This is a CLI Root Cause Analysis chatbot tool written using TypeScript in a Node.js environment.
 
 ## Pre-requisites
 
@@ -29,7 +29,7 @@ Check your TypeScript version using the following Terminal command:
 tsc -v
 ```
 
-## Usage
+## Setup
 
 1. Obtain an OpenAI API secret key from `https://platform.openai.com/account/api-keys`.
 2. Create a file named `.env` and add the following:
@@ -60,6 +60,13 @@ tsc -v
    tsc # step 1
    node dist/index.js # step 2
    ```
+
+## Usage
+
+1. Type in your query after ">".
+   At present moment, only single-line queries are allowed.
+
+2. To quit the chatbot, enter `enter` or `quit`.
 
 ### tsconfig.json
 

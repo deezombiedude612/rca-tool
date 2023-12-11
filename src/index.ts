@@ -1,40 +1,46 @@
 import openai from "./config/open-ai";
-import readlineSync from "readline-sync";
 import ChatMessage from "./models/ChatMessage";
+import { ChatCompletion } from "openai/resources";
+import { getChatHistory } from "./components/chat-history";
+import { getUserInput } from "./components/user-input";
 
 async function main() {
 	console.log(`----- ROOT CAUSE ANALYSIS TOOL -----`);
 	console.log(`Type in your query after ">" to begin.`);
 
-	const chatHistory: ChatMessage[] = []; // Store conversation history
+	// contain chat history, including messages from current session
+	const chatHistory: ChatMessage[] = getChatHistory();
 
 	while (true) {
-		const userInput = readlineSync.question("> ");
+		const userInput: string | false = getUserInput();
+		if (userInput === false) return;
 
 		try {
 			// Construct messages by iterating over history
 			const messages: ChatMessage[] = chatHistory.map(({ role, content }) => ({ role, content }));
+			// messages.unshift({
+			// 	role: "system",
+			// 	content:
+			// 		"You will be provided with stack trace information of software crashes, and your task is to explain what caused the crashes.",
+			// });
 
 			// Add latest user input
 			messages.push({ role: "user", content: userInput });
 
 			// Call API with user input
-			const res = await openai.chat.completions.create({
+			const res: ChatCompletion = await openai.chat.completions.create({
 				model: "gpt-3.5-turbo",
-				messages: [{ role: "user", content: userInput }],
+				messages: messages,
 			});
-
-			if (["exit", "quit"].includes(userInput.toLowerCase().trim())) {
-				console.log("Goodbye!\n");
-				return;
-			}
 
 			// Display response
 			console.log(res.choices[0].message.content + "\n");
 
 			// Update history with user input and assistant response
 			chatHistory.push({ role: "user", content: userInput });
-			chatHistory.push({ role: "assistant", content: res.choices[0].message.content! });
+			chatHistory.push({ role: "assistant", content: res.choices[0].message.content as string });
+
+			// console.log(chatHistory);
 		} catch (err) {
 			console.error(err);
 		}
