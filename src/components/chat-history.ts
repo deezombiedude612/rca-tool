@@ -1,3 +1,4 @@
+import * as fs from "fs";
 import ChatMessage from "../models/ChatMessage";
 
 // retrieve chat history from JSON file
