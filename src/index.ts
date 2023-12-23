@@ -1,7 +1,7 @@
 import openai from "./config/open-ai";
 import ChatMessage from "./models/ChatMessage";
 import { ChatCompletion } from "openai/resources";
-import { getChatHistory } from "./components/chat-history";
+import { getChatHistory, setChatHistory } from "./components/chat-history";
 import { getUserInput } from "./components/user-input";
 
 async function main() {
@@ -13,7 +13,12 @@ async function main() {
 
 	while (true) {
 		const userInput: string | false = getUserInput();
-		if (userInput === false) return;
+		if (userInput === false) {
+			// Save chat response to file
+			setChatHistory(chatHistory);
+
+			return;
+		}
 
 		try {
 			// Construct messages by iterating over history
@@ -32,6 +37,9 @@ async function main() {
 				model: "gpt-3.5-turbo",
 				messages: messages,
 			});
+
+			// Total number of possible responses
+			console.log(`Number of responses: ${res.choices.length}\n`);
 
 			// Display response
 			console.log(res.choices[0].message.content + "\n");
