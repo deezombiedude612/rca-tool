@@ -75,7 +75,16 @@ tsc -v
 
 2. To quit the chatbot, enter `exit` or `quit`.
 
-**NOTE:** Prematurely ending the session with `CTRL`+`c` is not expected to corrupt any related files, but is strongly discouraged nonetheless.
+3. Enter `rca` to commence entering the stack trace information for ChatGPT to analyze.
+   You will be required to enter the _error description_ first (e.g., heap overflow), followed by the information included in line #0.
+   You will be asked to confirm before ChatGPT provides its response.
+
+**NOTES:**
+
+1. Prematurely ending the session with `CTRL`+`c` is not expected to corrupt any related files, but is strongly discouraged nonetheless.
+2. Currently the RCA tool has 2 caveats to be fixed (as of Jan 2, 2024):
+   - it exits if you choose to not accept the information that has been entered
+   - you will need to enter `rca` each time you wish to utilize this interface to enter stack trace information
 
 ### tsconfig.json
 
