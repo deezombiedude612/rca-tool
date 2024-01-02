@@ -1,10 +1,16 @@
 import readlineSync from "readline-sync";
 
 export function getErrorInput(): string | false {
-	console.log("You'll be required to enter two pieces of information from the stack trace.");
+	console.log(
+		"You'll be required to enter two pieces of information from the stack trace."
+	);
 
-	const errorDescription: string = readlineSync.question("Enter error description (e.g., heap overflow) > ");
-	const lineZero: string = readlineSync.question("Enter the information included in line #0 > ");
+	const errorDescription: string = readlineSync.question(
+		"Enter error description (e.g., heap overflow) > "
+	);
+	const lineZero: string = readlineSync.question(
+		"Enter the information included in line #0 > "
+	);
 
 	let confirmString: string = "";
 	do {
@@ -26,6 +32,9 @@ export function getUserInput(): string | false {
 	if (["exit", "quit"].includes(userInput.toLowerCase().trim())) {
 		console.log("Goodbye!\n");
 		return false;
+	} else if (["rca"].includes(userInput.toLowerCase().trim())) {
+		console.log("Booting up RCA interface...\n");
+		return getErrorInput();
 	}
 
 	return userInput;

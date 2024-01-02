@@ -21,17 +21,17 @@ export function setChatHistory(chatHistory: ChatMessage[]): void {
 	console.log("Saving chat history..\n");
 
 	try {
-		fs.writeFileSync(CHAT_HISTORY_FILE, "[", { flag: "w+" });
+		fs.writeFileSync(CHAT_HISTORY_FILE, JSON.stringify(chatHistory), { flag: "w+" });
 
-		chatHistory.forEach((chatEntry, index) => {
-			fs.appendFileSync(CHAT_HISTORY_FILE, "{", { flag: "a+" });
-			fs.appendFileSync(CHAT_HISTORY_FILE, `"role": "${chatEntry.role}",`);
-			fs.appendFileSync(CHAT_HISTORY_FILE, `"content": "${chatEntry.content}"`);
-			fs.appendFileSync(CHAT_HISTORY_FILE, "}");
-			index < chatHistory.length - 1 && fs.appendFileSync(CHAT_HISTORY_FILE, ",");
-		});
-
-		fs.appendFileSync(CHAT_HISTORY_FILE, "]");
+		// fs.writeFileSync(CHAT_HISTORY_FILE, "[", { flag: "w+" });
+		// chatHistory.forEach((chatEntry, index) => {
+		// 	fs.appendFileSync(CHAT_HISTORY_FILE, "{", { flag: "a+" });
+		// 	fs.appendFileSync(CHAT_HISTORY_FILE, `"role": "${chatEntry.role}",`);
+		// 	fs.appendFileSync(CHAT_HISTORY_FILE, `"content": "${chatEntry.content}"`);
+		// 	fs.appendFileSync(CHAT_HISTORY_FILE, "}");
+		// 	index < chatHistory.length - 1 && fs.appendFileSync(CHAT_HISTORY_FILE, ",");
+		// });
+		// fs.appendFileSync(CHAT_HISTORY_FILE, "]");
 	} catch (err) {
 		console.log("Unable to save chat history: " + err);
 	}

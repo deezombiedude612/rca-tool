@@ -11,7 +11,7 @@ This is a CLI Root Cause Analysis chatbot tool written using TypeScript in a Nod
 You will require **Node.js** to run the chatbot.
 This chatbot was developed using Node v20.10.0 running on macOS Sonoma 14.1.2.
 
-Check your version of Node.js with the following Terminal command:
+Check your version of Node.js with the following Terminal command (it should display the version number if installed correctly):
 
 ```shell
 node -v
@@ -46,7 +46,8 @@ tsc -v
    npm i
    ```
 
-4. Run the bot.
+4. Run the bot using the following shell command in the project folder.
+
    This involves a 2-step process: first, the TypeScript code from `src/` is compiled into JavaScript code, which will be stored as JavaScript files in `dist/`.
    Then, those JavaScript files are run under the Node.js environment.
 
@@ -61,12 +62,20 @@ tsc -v
    node dist/index.js # step 2
    ```
 
+   Alternatively, if you choose to run the chatbot without recompiling, just run Step 2.
+
+   ```shell
+   node dist/index.js
+   ```
+
 ## Usage
 
 1. Type in your query after ">".
    At present moment, only single-line queries are allowed.
 
-2. To quit the chatbot, enter `enter` or `quit`.
+2. To quit the chatbot, enter `exit` or `quit`.
+
+**NOTE:** Prematurely ending the session with `CTRL`+`c` is not expected to corrupt any related files, but is strongly discouraged nonetheless.
 
 ### tsconfig.json
 
@@ -119,4 +128,28 @@ Should `tsconfig.json` not be made readily available for you, run `tsc --init` i
 		"skipLibCheck": true /* Skip type checking all .d.ts files. */
 	}
 }
+```
+
+### chat-history.json
+
+The chatbot utilizes a JSON file containing historical records of previously entered queries and responses, except directives like `exit` or `quit`.
+Should this file (i.e., `chat-history.json`) not exist, a new one will be created with all entered queries and their respective responses.
+
+**NOTE:** This file will be remade if it is found to be corrupted or unreadable.
+
+`chat-history.json` will contain an array of objects containing 2 attributes: `role` and `content`.
+Here, both `role` and `content` attributes take on string values;
+however, `role` only has 3 valid values:
+
+1. "user": indicates that the object contains a user query, always preceeds a chatbot response object
+2. "assistant": indicates that the object contains a chatbot response, always follows a user query object
+3. "system": a directive added during the chatbot's use, removed before backing up to `chat-history.json`
+
+Every 2 objects beginning from the first one make a related pair - a query object (where `role` equals "user") is followed by a response object by the chatbot (where `role` equals "assistant").
+
+```json
+[
+	{ "role": "user", "content": "Hi there!" },
+	{ "role": "assistant", "content": "Hello! How can I assist you today?" }
+]
 ```

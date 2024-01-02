@@ -11,9 +11,18 @@ async function main() {
 	// contain chat history, including messages from current session
 	const chatHistory: ChatMessage[] = getChatHistory();
 
+	// add system directive
+	chatHistory.unshift({
+		role: "system",
+		content:
+			"You will be provided with stack trace information of software crashes, and your task is to explain what caused the crashes.",
+	});
+
 	while (true) {
 		const userInput: string | false = getUserInput();
 		if (userInput === false) {
+			chatHistory.shift(); // remove system directive
+
 			// Save chat response to file
 			setChatHistory(chatHistory);
 
@@ -22,12 +31,10 @@ async function main() {
 
 		try {
 			// Construct messages by iterating over history
-			const messages: ChatMessage[] = chatHistory.map(({ role, content }) => ({ role, content }));
-			// messages.unshift({
-			// 	role: "system",
-			// 	content:
-			// 		"You will be provided with stack trace information of software crashes, and your task is to explain what caused the crashes.",
-			// });
+			const messages: ChatMessage[] = chatHistory.map(({ role, content }) => ({
+				role,
+				content,
+			}));
 
 			// Add latest user input
 			messages.push({ role: "user", content: userInput });
@@ -46,7 +53,10 @@ async function main() {
 
 			// Update history with user input and assistant response
 			chatHistory.push({ role: "user", content: userInput });
-			chatHistory.push({ role: "assistant", content: res.choices[0].message.content as string });
+			chatHistory.push({
+				role: "assistant",
+				content: res.choices[0].message.content as string,
+			});
 
 			// console.log(chatHistory);
 		} catch (err) {
