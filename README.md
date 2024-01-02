@@ -40,6 +40,26 @@ tsc -v
 
    Follow the syntax as given. Replace `<YOUR_API_KEY_HERE>` with your OpenAI API secret key.
 
+   The project folder structure should be as follows:
+
+   ```
+   rca-tool/
+   |- dist/           (JavaScript code, appears after compiling the TypeScript source code)
+   |- node_modules/   (appears after finishing Step 3)
+   |- src/            (contains TypeScript source code)
+     |- assets/
+     |- components/
+     |- config/
+     |- models/
+     |- index.ts
+   |- .env
+   |- .gitignore
+   |- chat-history.json
+   |- package.json
+   |- README.md
+   |- tsconfig.json
+   ```
+
 3. Install dependencies.
 
    ```shell
