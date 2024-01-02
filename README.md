@@ -47,15 +47,15 @@ tsc -v
    |- dist/           (JavaScript code, appears after compiling the TypeScript source code)
    |- node_modules/   (appears after finishing Step 3)
    |- src/            (contains TypeScript source code)
-     |- assets/
-     |- components/
-        |- chat-history.ts
-        |- user-input.ts
-     |- config/
-        |- open-ai.ts
-     |- models/
-        |- ChatMessage.ts
-     |- index.ts
+      |- assets/
+      |- components/
+         |- chat-history.ts
+         |- user-input.ts
+      |- config/
+         |- open-ai.ts
+      |- models/
+         |- ChatMessage.ts
+      |- index.ts
    |- .env
    |- .gitignore
    |- chat-history.json
