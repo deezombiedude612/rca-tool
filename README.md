@@ -49,8 +49,12 @@ tsc -v
    |- src/            (contains TypeScript source code)
      |- assets/
      |- components/
+        |- chat-history.ts
+        |- user-input.ts
      |- config/
+        |- open-ai.ts
      |- models/
+        |- ChatMessage.ts
      |- index.ts
    |- .env
    |- .gitignore
