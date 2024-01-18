@@ -54,7 +54,7 @@ export function getErrorInput(): string {
 export function getUserInput(): string | false {
 	const userInput = readlineSync.question("> ");
 
-	// Use "exit" or "quit" to exit the Chatbot interface - should modify to only take in keywords?
+	// Use "exit" or "quit" to exit the Chatbot interface
 	if (["exit", "quit"].includes(userInput.toLowerCase().trim())) {
 		console.log("Goodbye!\n");
 		return false;
@@ -67,6 +67,7 @@ export function getUserInput(): string | false {
 	return userInput;
 }
 
+// for calling API with user input
 export const tools: ChatCompletionTool[] = [
 	{
 		type: "function",
@@ -78,3 +79,8 @@ export const tools: ChatCompletionTool[] = [
 		},
 	},
 ];
+
+// ChatGPT arguments to call function
+export const availableFunctions = {
+	getErrorInput: getErrorInput,
+};

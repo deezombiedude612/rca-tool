@@ -5,7 +5,7 @@ const CHAT_HISTORY_FILE = "chat-history.json";
 
 // retrieve chat history from JSON file
 export function getChatHistory(): ChatCompletionMessageParam[] {
-	// return chat history as ChatMessage[]
+	// return chat history as ChatCompletionMessageParam[]
 	try {
 		const data = require("../../" + CHAT_HISTORY_FILE); // going out from JS files in dist/, why do I need to cater for this?
 

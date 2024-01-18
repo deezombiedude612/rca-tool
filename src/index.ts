@@ -1,7 +1,11 @@
 import openai from "./config/open-ai";
 import { ChatCompletion, ChatCompletionMessageParam } from "openai/resources";
 import { getChatHistory, setChatHistory } from "./components/chat-history";
-import { getErrorInput, getUserInput, tools } from "./components/functions";
+import {
+	availableFunctions,
+	getUserInput,
+	tools,
+} from "./components/functions";
 
 async function main() {
 	console.log(`----- ROOT CAUSE ANALYSIS TOOL -----`);
@@ -22,7 +26,7 @@ async function main() {
 
 		// userInput becomes false if "quit" or "exit" is entered to exit the program
 		if (userInput === false) {
-			chatHistory.shift(); // remove system directive
+			chatHistory.shift(); // remove system directive; not to be included in chat-history.json
 
 			// Save chat response to file
 			setChatHistory(chatHistory);
@@ -118,24 +122,24 @@ async function main() {
 				tool_choice: "auto",
 			});
 
-			// Prints out total number of possible responses
-			// console.log(`Number of responses: ${res.choices.length}\n`);
-
 			// Check if function is called
 			// TEST CASE #1: "Invoke the getErrorInput function."
 			// TEST CASE #2: "I'd like to figure out what caused my software to crash."
 			if (res.choices[0].message.tool_calls) {
-				// ChatGPT arguments to call function
-				const availableFunctions = {
-					getErrorInput: getErrorInput,
-				};
+				/**
+				 * ChatGPT arguments to call function
+				 * Replaced with import from functions.ts
+				 */
+				// const availableFunctions = {
+				// 	getErrorInput: getErrorInput,
+				// };
 
 				messages.push(res.choices[0].message); // extend conversation with assistant's reply
 				const toolCall = res.choices[0].message.tool_calls[0];
 				const functionName = toolCall.function.name;
 				const functionToCall =
 					availableFunctions[functionName as keyof typeof availableFunctions];
-				const functionArgs = JSON.parse(toolCall.function.arguments);
+				// const functionArgs = JSON.parse(toolCall.function.arguments);
 				let functionResponse = "";
 
 				if (functionName === "getErrorInput") {
