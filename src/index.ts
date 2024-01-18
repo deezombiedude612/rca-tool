@@ -1,11 +1,11 @@
-import openai from "./config/open-ai";
-import { ChatCompletion, ChatCompletionMessageParam } from "openai/resources";
+import { ChatCompletionMessageParam } from "openai/resources";
 import { getChatHistory, setChatHistory } from "./components/chat-history";
 import {
 	availableFunctions,
 	getUserInput,
 	tools,
 } from "./components/functions";
+import openai from "./config/open-ai";
 
 async function main() {
 	console.log(`----- ROOT CAUSE ANALYSIS TOOL -----`);
@@ -31,13 +31,13 @@ async function main() {
 			// Save chat response to file
 			setChatHistory(chatHistory);
 
-			return;
+			break;
 		}
 
 		try {
 			// Construct messages by iterating over history
 			const messages: ChatCompletionMessageParam[] = [];
-			chatHistory.forEach((chatObj: ChatCompletionMessageParam) => {
+			chatHistory.forEach((chatObj) => {
 				if (chatObj.role === "function") {
 					messages.push({
 						role: chatObj.role,
@@ -115,7 +115,7 @@ async function main() {
 			messages.push({ role: "user", content: userInput });
 
 			// Call API with user input
-			const res: ChatCompletion = await openai.chat.completions.create({
+			const res = await openai.chat.completions.create({
 				model: "gpt-3.5-turbo",
 				messages: messages,
 				tools: tools,
