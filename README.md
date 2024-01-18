@@ -50,11 +50,12 @@ tsc -v
       |- assets/
       |- components/
          |- chat-history.ts
-         |- user-input.ts
+         |- functions.ts
       |- config/
          |- open-ai.ts
+         |- tools.ts
       |- models/
-         |- ChatMessage.ts
+         |- ChatMessage.ts    (deprecated and unused, using a defined Type by openai)
       |- index.ts
    |- .env
    |- .gitignore
@@ -165,24 +166,20 @@ Should `tsconfig.json` not be made readily available for you, run `tsc --init` i
 
 ### chat-history.json
 
-The chatbot utilizes a JSON file containing historical records of previously entered queries and responses, except directives like `exit` or `quit`.
+The chatbot utilizes a JSON file containing historical records of previously entered queries and responses, except for specific directives: `exit` or `quit`.
 Should this file (i.e., `chat-history.json`) not exist, a new one will be created with all entered queries and their respective responses.
 
 **NOTE:** This file will be remade if it is found to be corrupted or unreadable.
 
-`chat-history.json` will contain an array of objects containing 2 attributes: `role` and `content`.
-Here, both `role` and `content` attributes take on string values;
-however, `role` only has 3 valid values:
+`chat-history.json` will contain an array of objects with a structure based on the `ChatCompletionMessageParam` type as defined by `openai`.
+Each structure comprises a message
 
-1. "user": indicates that the object contains a user query, always preceeds a chatbot response object
-2. "assistant": indicates that the object contains a chatbot response, always follows a user query object
-3. "system": a directive added during the chatbot's use, removed before backing up to `chat-history.json`
+- indicating a first instruction to the system (i.e., `ChatCompletionSystemMessageParam`),
 
-Every 2 objects beginning from the first one make a related pair - a query object (where `role` equals "user") is followed by a response object by the chatbot (where `role` equals "assistant").
+or generated
 
-```json
-[
-	{ "role": "user", "content": "Hi there!" },
-	{ "role": "assistant", "content": "Hello! How can I assist you today?" }
-]
-```
+- by the user (i.e., `ChatCompletionUserMessageParam`),
+- by ChatGPT/the assistant (i.e., `ChatCompletionAssistantMessageParam`), or
+- when a tool/function is invoked (i.e., `ChatCompletionToolMessageParam` or `ChatCompletionFunctionMessageParam`)
+
+Refer to `node_modules/openai/src/resources/chat/completions.ts` for the defined interfaces making up the `ChatCompletionMessageParam` type.
