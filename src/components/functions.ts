@@ -1,70 +1,26 @@
+import * as fs from "fs";
 import { ChatCompletionTool } from "openai/resources";
-import readlineSync from "readline-sync";
 
-// export function getErrorInput(): string | false {
-// 	console.log(
-// 		"You'll be required to enter two pieces of information from the stack trace."
-// 	);
+export function readCrashes() {
+	// const CRASHES_DIR = "../crashes";
+	const CRASHES_DIR = "./crashes";
+	let crashInputs = "";
 
-// 	const errorDescription: string = readlineSync.question(
-// 		"Enter error description (e.g., heap overflow) > "
-// 	);
-// 	const lineZero: string = readlineSync.question(
-// 		"Enter the information included in line #0 > "
-// 	);
+	try {
+		const CRASH_FILES = fs.readdirSync(CRASHES_DIR);
+		// console.log(fs.readdirSync("../crashes"));
 
-// 	let confirmString: string = "";
-// 	do {
-// 		console.log(`Error description: ${errorDescription}\n`);
-// 		console.log(`Line #0: ${lineZero}\n`);
-
-// 		confirmString = readlineSync.question("Confirm? (Y/n) > ");
-// 	} while (["y", "n"].includes(confirmString.toLowerCase().trim()));
-
-// 	if (["n"].includes(confirmString.toLowerCase().trim())) return false;
-
-// 	return `What is wrong with this error? \nError description: ${errorDescription}\n Line #0: ${lineZero}`;
-// }
-
-export function getErrorInput(): string {
-	console.log(
-		`You'll be required to enter two pieces of information from the stack trace.`
-	);
-
-	let errorDescription: string, lineZero: string;
-	let confirmString: string = "";
-
-	let errorInfo = "";
-	do {
-		errorDescription = readlineSync.question(`Error description > `);
-		lineZero = readlineSync.question(`Content on stack line #0 > `);
-		errorInfo = `Error description: ${errorDescription}\n
-		Line #0 on stack: ${lineZero}`;
-
-		do {
-			console.log(`${errorInfo}\n`);
-
-			confirmString = readlineSync.question("Confirm? (Y/n) > ");
-		} while (["y", "n"].includes(confirmString.toLowerCase().trim()));
-	} while (!["y"].includes(confirmString.toLowerCase().trim()));
-
-	return errorInfo;
-}
-
-export function getUserInput(): string | false {
-	const userInput = readlineSync.question("> ");
-
-	// Use "exit" or "quit" to exit the Chatbot interface
-	if (["exit", "quit"].includes(userInput.toLowerCase().trim())) {
-		console.log("Goodbye!\n");
-		return false;
+		CRASH_FILES.forEach((crashFile) => {
+			crashInputs += `\nCrash file: ${crashFile}`;
+			crashInputs += "\n```\n";
+			crashInputs += fs.readFileSync(`${CRASHES_DIR}/${crashFile}`, "utf-8");
+			crashInputs += "\n```\n";
+		});
+	} catch (err) {
+		console.error(`Something went wrong in readCrashes():\n` + err);
 	}
-	// else if (["rca"].includes(userInput.toLowerCase().trim())) {
-	// 	console.log("Booting up RCA interface...\n");
-	// 	return getErrorInput();
-	// }
 
-	return userInput;
+	return crashInputs;
 }
 
 // for calling API with user input
@@ -72,9 +28,9 @@ export const tools: ChatCompletionTool[] = [
 	{
 		type: "function",
 		function: {
-			name: "getErrorInput",
+			name: "readCrashes",
 			description:
-				"Retrieve stack trace information to diagnose cause of program crashes",
+				"Read stack traces to diagnose root cause of program crashes",
 			parameters: {},
 		},
 	},
@@ -82,5 +38,5 @@ export const tools: ChatCompletionTool[] = [
 
 // ChatGPT arguments to call function
 export const availableFunctions = {
-	getErrorInput: getErrorInput,
+	readCrashes: readCrashes,
 };

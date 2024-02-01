@@ -4,4 +4,7 @@
 package-lock.json
 
 dist/
+ignore/
 node_modules/
+
+*.ts.bak

@@ -1,0 +1,10 @@
+==12098==ERROR: AddressSanitizer: stack-use-after-scope on address 0x7fffbd927900 at pc 0x560bfff8292d bp 0x7fffbd927770 sp 0x7fffbd927760
+WRITE of size 8 at 0x7fffbd927900 thread T0
+    #0 0x560bfff8292c in expand_mmac_params asm/preproc.c:5373
+    #1 0x560bfff7ea8e in expand_mmac_params asm/preproc.c:5337
+    #2 0x560bfffa0c4b in pp_tokline asm/preproc.c:7258
+    #3 0x560bfffa0c4b in pp_getline asm/preproc.c:7328
+    #4 0x560bffef4b29 in main asm/nasm.c:628
+    #5 0x7f2089029d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #6 0x7f2089029e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #7 0x560bffef7c6d in _start (/home/deezombiedude/rca/13_nasm_2022-44370/nasm_fuzz+0x11bc6d)

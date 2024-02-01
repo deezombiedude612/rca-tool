@@ -42,3 +42,88 @@ export function setChatHistory(
 		console.log("Unable to save chat history: " + err);
 	}
 }
+
+// Construct `messages` list by iterating over history
+// NOTE: `messages` contains chat history including prompts in current session
+export function setMessages(
+	chatHistory: ChatCompletionMessageParam[]
+): ChatCompletionMessageParam[] {
+	const messages: ChatCompletionMessageParam[] = [];
+	chatHistory.forEach((chatObj) => {
+		if (chatObj.role === "function") {
+			messages.push({
+				role: chatObj.role,
+				content: chatObj.content || "",
+				name: chatObj.name,
+			});
+		} else if (chatObj.role === "tool") {
+			messages.push({
+				role: chatObj.role,
+				content: chatObj.content || "",
+				tool_call_id: chatObj.tool_call_id,
+			});
+		} else if (chatObj.role === "system") {
+			if (typeof chatObj.name === undefined) {
+				messages.push({
+					role: chatObj.role,
+					content: chatObj.content,
+				});
+			} else {
+				messages.push({
+					role: chatObj.role,
+					content: chatObj.content,
+					name: chatObj.name,
+				});
+			}
+		} else if (chatObj.role === "user") {
+			if (typeof chatObj.name === undefined) {
+				messages.push({
+					role: chatObj.role,
+					content: chatObj.content,
+				});
+			} else {
+				messages.push({
+					role: chatObj.role,
+					content: chatObj.content,
+					name: chatObj.name,
+				});
+			}
+		} else if (chatObj.role === "assistant") {
+			if (typeof chatObj.name === undefined) {
+				messages.push({
+					role: chatObj.role,
+					content: chatObj.content,
+				});
+			} else {
+				messages.push({
+					role: chatObj.role,
+					content: chatObj.content,
+					name: chatObj.name,
+				});
+			}
+		}
+
+		/** Doesn't seem to work for some reason..
+				// else if (["system", "user", "assistant"].includes(chatObj.role)) {
+				// 	// somehow this logic doesn't seem to work
+				// 	const anObject:
+				// 		| ChatCompletionSystemMessageParam
+				// 		| ChatCompletionUserMessageParam
+				// 		| ChatCompletionAssistantMessageParam = {
+				// 		role: chatObj.role,	// ambiguity in here
+				// 		content: chatObj.content,
+				// 	};
+				// 	if (typeof chatObj.name !== undefined) {
+				// 		anObject.name = chatObj.name;
+				// 	}
+				// 	messages.push(anObject);
+				// }
+				 */
+	});
+	// const messages: ChatCompletionMessageParam[] = chatHistory.map(({ role, content }) => ({
+	// 	role,
+	// 	content,
+	// }));
+
+	return messages;
+}
