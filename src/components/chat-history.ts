@@ -12,7 +12,7 @@ export function getChatHistory(): ChatCompletionMessageParam[] {
 		return data;
 	} catch (err) {
 		console.log(
-			"Unable to load chat history, you might want to back up the chat history like.. NOW!"
+			"Unable to load chat history, you might want to back up the chat history like.. NOW!",
 		);
 		return [];
 	}
@@ -20,7 +20,7 @@ export function getChatHistory(): ChatCompletionMessageParam[] {
 
 // Store conversation history after session
 export function setChatHistory(
-	chatHistory: ChatCompletionMessageParam[]
+	chatHistory: ChatCompletionMessageParam[],
 ): void {
 	console.log("Saving chat history..\n");
 
@@ -46,7 +46,7 @@ export function setChatHistory(
 // Construct `messages` list by iterating over history
 // NOTE: `messages` contains chat history including prompts in current session
 export function setMessages(
-	chatHistory: ChatCompletionMessageParam[]
+	chatHistory: ChatCompletionMessageParam[],
 ): ChatCompletionMessageParam[] {
 	const messages: ChatCompletionMessageParam[] = [];
 	chatHistory.forEach((chatObj) => {
@@ -62,7 +62,7 @@ export function setMessages(
 				content: chatObj.content || "",
 				tool_call_id: chatObj.tool_call_id,
 			});
-		} else if (chatObj.role === "system") {
+		} else if (chatObj.role === "assistant") {
 			if (typeof chatObj.name === undefined) {
 				messages.push({
 					role: chatObj.role,
@@ -88,7 +88,7 @@ export function setMessages(
 					name: chatObj.name,
 				});
 			}
-		} else if (chatObj.role === "assistant") {
+		} else if (chatObj.role === "system") {
 			if (typeof chatObj.name === undefined) {
 				messages.push({
 					role: chatObj.role,
