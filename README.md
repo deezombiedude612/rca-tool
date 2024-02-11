@@ -44,6 +44,7 @@ tsc -v
 
    ```
    rca-tool/
+   |- crashes         (contains stack trace files to analyze)
    |- dist/           (JavaScript code, appears after compiling the TypeScript source code)
    |- node_modules/   (appears after finishing Step 3)
    |- src/            (contains TypeScript source code)
@@ -95,14 +96,23 @@ tsc -v
 
 ## Usage
 
-1. Type in your query after ">".
-   At present moment, only single-line queries are allowed.
+1. Ensure that the crashes folder contains text files with the necessary stack trace information in them first before executing the application.
+   One example of the stack trace contents may be like as follows:
 
-2. To quit the chatbot, enter `exit` or `quit`.
+```
+==11852==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000003033 at pc 0x556321736838 bp 0x7ffe4d212270 sp 0x7ffe4d212260
+WRITE of size 1 at 0x602000003033 thread T0
+    #0 0x556321736837 in quote_for_pmake asm/nasm.c:856
+    #1 0x556321736837 in quote_for_pmake asm/nasm.c:784
+    #2 0x556321732055 in emit_dependencies asm/nasm.c:397
+    #3 0x556321732055 in main asm/nasm.c:738
+    #4 0x7f1d84829d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #5 0x7f1d84829e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #6 0x556321734c6d in _start (/home/deezombiedude/rca/13_nasm_2022-44370/nasm_fuzz+0x11bc6d)
+```
 
-3. Enter `rca` to commence entering the stack trace information for ChatGPT to analyze.
-   You will be required to enter the _error description_ first (e.g., heap overflow), followed by the information included in line #0.
-   You will be asked to confirm before ChatGPT provides its response.
+2. You will be asked how many stack trace files are to be analyzed (due to how token limits are implemented in GPT).
+   The number of stack traces analyzed will be limited by either the entered number or the number of provided stack traces, whichever is smaller.
 
 **NOTES:**
 
