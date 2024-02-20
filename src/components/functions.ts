@@ -1,6 +1,6 @@
 import * as fs from "fs";
 import { ChatCompletionTool } from "openai/resources";
-import { getReadLimit } from "./lib/getReadLimit";
+import { getReadLimit } from "./lib";
 
 export function readCrashes() {
   // const CRASHES_DIR = "../crashes";

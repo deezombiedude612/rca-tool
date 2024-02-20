@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from "vitest";
 import { readCrashes } from "../src/components/functions";
-import { getReadLimit } from "../src/components/lib/getReadLimit";
+import { getReadLimit } from "../src/components/lib";
 
 vi.mock("../src/components/lib/getReadLimit");
 

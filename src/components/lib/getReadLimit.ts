@@ -1,7 +1,7 @@
 import readlineSync from "readline-sync";
 
 // ask for number of crash files to analyze
-export function getReadLimit(readCountLimit = 0) {
+export default function getReadLimit(readCountLimit = 0) {
   // let readCountLimit: number = 0;
   while (readCountLimit < 1) {
     try {

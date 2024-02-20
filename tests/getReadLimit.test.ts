@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { getReadLimit } from "../src/components/lib/getReadLimit";
+import { getReadLimit } from "../src/components/lib";
 
 describe("getReadLimit", () => {
   it("should only set read limit as integer values", () => {

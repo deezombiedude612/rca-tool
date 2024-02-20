@@ -1,0 +1,43 @@
+[
+  { "role": "system", "content": "Perform function requests for the user." },
+  { "role": "user", "content": "readCrashes" },
+  {
+    "role": "assistant",
+    "content": null,
+    "tool_calls": [
+      {
+        "id": "call_nVCmvekzQYOt9wVRisjAGjHw",
+        "type": "function",
+        "function": { "name": "readCrashes", "arguments": "{}" }
+      }
+    ]
+  },
+  {
+    "tool_call_id": "call_nVCmvekzQYOt9wVRisjAGjHw",
+    "role": "tool",
+    "content": "What is the main root cause of the software crash from the following stack traces?\n\nStack trace id%3A000000.txt\n```\n==11852==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000003033 at pc 0x556321736838 bp 0x7ffe4d212270 sp 0x7ffe4d212260\nWRITE of size 1 at 0x602000003033 thread T0\n    #0 0x556321736837 in quote_for_pmake asm/nasm.c:856\n    #1 0x556321736837 in quote_for_pmake asm/nasm.c:784\n    #2 0x556321732055 in emit_dependencies asm/nasm.c:397\n    #3 0x556321732055 in main asm/nasm.c:738\n    #4 0x7f1d84829d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)\n    #5 0x7f1d84829e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)\n    #6 0x556321734c6d in _start (/home/deezombiedude/rca/13_nasm_2022-44370/nasm_fuzz+0x11bc6d)\n\n```\n\nStack trace id%3A000001.txt\n```\n==11853==ERROR: AddressSanitizer: stack-use-after-scope on address 0x7fffb3cdff20 at pc 0x556a7450f92d bp 0x7fffb3cdfd90 sp 0x7fffb3cdfd80\nWRITE of size 8 at 0x7fffb3cdff20 thread T0\n    #0 0x556a7450f92c in expand_mmac_params asm/preproc.c:5373\n    #1 0x556a7452dc4b in pp_tokline asm/preproc.c:7258\n    #2 0x556a7452dc4b in pp_getline asm/preproc.c:7328\n    #3 0x556a74481b29 in main asm/nasm.c:628\n    #4 0x7f3c4fc29d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)\n    #5 0x7f3c4fc29e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)\n    #6 0x556a74484c6d in _start (/home/deezombiedude/rca/13_nasm_2022-44370/nasm_fuzz+0x11bc6d)\n\n```\n\nStack trace id%3A000002.txt\n```\n==11854==ERROR: AddressSanitizer: stack-use-after-scope on address 0x7fff70196130 at pc 0x557dedd1d92d bp 0x7fff70195fa0 sp 0x7fff70195f90\nWRITE of size 8 at 0x7fff70196130 thread T0\n    #0 0x557dedd1d92c in expand_mmac_params asm/preproc.c:5373\n    #1 0x557dedd19a8e in expand_mmac_params asm/preproc.c:5337\n    #2 0x557dedd3bc4b in pp_tokline asm/preproc.c:7258\n    #3 0x557dedd3bc4b in pp_getline asm/preproc.c:7328\n    #4 0x557dedc8fb29 in main asm/nasm.c:628\n    #5 0x7f7b72c29d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)\n    #6 0x7f7b72c29e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)\n    #7 0x557dedc92c6d in _start (/home/deezombiedude/rca/13_nasm_2022-44370/nasm_fuzz+0x11bc6d)\n\n```\n"
+  },
+  {
+    "id": "chatcmpl-8uOBB56EFdyDkA1uKYAzYReU348db",
+    "object": "chat.completion",
+    "created": 1708450005,
+    "model": "gpt-4-0613",
+    "choices": [
+      {
+        "index": 0,
+        "message": {
+          "role": "assistant",
+          "content": "The root causes of the crashes in the stack traces are as follows:\n\nStack trace id%3A000000.txt:\nThe main root cause is an overflow on the heap buffer. The function `quote_for_pmake` in `asm/nasm.c` on lines 856 and 784 seem to be where the overflow was caused.\n\nStack trace id%3A000001.txt:\nThe main root cause is an issue of use after scope on the stack. The function `expand_mmac_params` in `asm/preproc.c` on line 5373 seems to be where the issue was caused.\n\nStack trace id%3A000002.txt:\nThe main root cause, like the previous crash, is an issue of use after scope on the stack. The function `expand_mmac_params` in `asm/preproc.c` on lines 5373 and 5337 seem to be where the issue was caused."
+        },
+        "logprobs": null,
+        "finish_reason": "stop"
+      }
+    ],
+    "usage": {
+      "prompt_tokens": 1005,
+      "completion_tokens": 185,
+      "total_tokens": 1190
+    },
+    "system_fingerprint": null
+  }
+]
