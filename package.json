@@ -7,7 +7,11 @@
 		"compile": "tsc",
 		"exec": "node dist/index.js",
 		"clean": "rm -rf dist",
-		"ce": "npm run clean; npm run compile && npm run exec"
+		"ce": "npm run clean; npm run compile && npm run exec",
+		"test": "vitest",
+		"test:ui": "vitest --ui",
+		"coverage": "vitest run --coverage",
+		"format": "prettier src/ --write"
 	},
 	"keywords": [],
 	"author": "deezombiedude",
@@ -20,6 +24,10 @@
 	},
 	"devDependencies": {
 		"@types/node": "^20.10.6",
-		"typescript": "^5.3.3"
+		"@vitest/coverage-v8": "^1.3.0",
+		"@vitest/ui": "^1.3.0",
+		"prettier": "^3.2.5",
+		"typescript": "^5.3.3",
+		"vitest": "^1.3.0"
 	}
 }
