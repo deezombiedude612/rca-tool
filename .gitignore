@@ -5,6 +5,8 @@ package-lock.json
 
 dist/
 ignore/
+models/
 node_modules/
 
 *.ts.bak
+src/components/chat-history.ts

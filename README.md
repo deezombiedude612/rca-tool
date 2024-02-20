@@ -9,7 +9,7 @@ This is a CLI Root Cause Analysis chatbot tool written using TypeScript in a Nod
 ### Node.js
 
 You will require **Node.js** to run the chatbot.
-This chatbot was developed using Node v20.10.0 running on macOS Sonoma 14.1.2.
+This chatbot was developed using Node v20.10.0 running on macOS Sonoma 14.3.1.
 
 Check your version of Node.js with the following Terminal command (it should display the version number if installed correctly):
 
@@ -31,7 +31,7 @@ tsc -v
 
 ## Setup
 
-1. Obtain an OpenAI API secret key from `https://platform.openai.com/account/api-keys`.
+1. Obtain an OpenAI API secret key from [`https://platform.openai.com/account/api-keys`](`https://platform.openai.com/account/api-keys`).
 2. Create a file named `.env` and add the following:
 
    ```
@@ -48,22 +48,28 @@ tsc -v
    |- dist/           (JavaScript code, appears after compiling the TypeScript source code)
    |- node_modules/   (appears after finishing Step 3)
    |- src/            (contains TypeScript source code)
-      |- assets/
       |- components/
-         |- chat-history.ts
-         |- functions.ts
+         |- functions.ts      (to contain executable functions based on user prompts)
+         |- lib/
+            |- getNewUserPrompt.ts
+            |- getReadLimit.ts
+            |- index.ts
+            |- saveSession.ts
       |- config/
          |- open-ai.ts
-         |- tools.ts
-      |- models/
-         |- ChatMessage.ts    (deprecated and unused, using a defined Type by openai)
       |- index.ts
+   |- sessions       (contains JSON logs of prompts and responses involved in previous sessions)
+   |- tests          (unit test files, to populate as number of functions involved increases)
+      |- functions.test.ts
+      |- getReadLimit.test.ts
    |- .env
    |- .gitignore
+   |- .prettierrc.json
    |- chat-history.json
    |- package.json
    |- README.md
    |- tsconfig.json
+   |- vitest.config.json
    ```
 
 3. Install dependencies.
@@ -114,12 +120,19 @@ WRITE of size 1 at 0x602000003033 thread T0
 2. You will be asked how many stack trace files are to be analyzed (due to how token limits are implemented in GPT).
    The number of stack traces analyzed will be limited by either the entered number or the number of provided stack traces, whichever is smaller.
 
+3. Upon receiving this response, you may pursue one of several course of actions:
+   - **A follow-up prompt (to clarify received response from earlier, etc.):**
+     Just type out your follow-up prompt in free response mode as you would on any chatbot.
+   - **Reanalyze stack trace files:**
+     Enter `readCrashes` without any extra preceeding or trailing words.
+   - **Quit:**
+     Enter `quit` or `exit` without any extra preceeding or trailing words.
+
 **NOTES:**
 
 1. Prematurely ending the session with `CTRL`+`c` is not expected to corrupt any related files, but is strongly discouraged nonetheless.
-2. Currently the RCA tool has 2 caveats to be fixed (as of Jan 2, 2024):
-   - it exits if you choose to not accept the information that has been entered
-   - you will need to enter `rca` each time you wish to utilize this interface to enter stack trace information
+2. Currently the RCA chatbot tool has the following caveat(s) (as of Feb 21, 2024):
+   - the number of stack trace file inputs are dependent on content of those files and the allowed token limit
 
 ### tsconfig.json
 
@@ -128,53 +141,57 @@ Should `tsconfig.json` not be made readily available for you, run `tsc --init` i
 
 ```json
 {
-	"compilerOptions": {
-		/* Visit https://aka.ms/tsconfig to read more about this file */
+  "compilerOptions": {
+    /* Visit https://aka.ms/tsconfig to read more about this file */
 
-		/* ... */
+    /* ... */
 
-		/* Language and Environment */
-		"target": "es2016" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
-		/* ... */
+    /* Language and Environment */
+    "target": "es2016" /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */,
+    /* ... */
 
-		/* Modules */
-		"module": "commonjs" /* Specify what module code is generated. */,
-		"rootDir": "./src" /* Specify the root folder within your source files. */,
-		"moduleResolution": "node10" /* Specify how TypeScript looks up a file from a given module specifier. */,
-		/* ... */
+    /* Modules */
+    "module": "commonjs" /* Specify what module code is generated. */,
+    "rootDir": "./src" /* Specify the root folder within your source files. */,
+    "moduleResolution": "node10" /* Specify how TypeScript looks up a file from a given module specifier. */,
+    /* ... */
 
-		/* Emit */
-		/* ... */
-		"sourceMap": true /* Create source map files for emitted JavaScript files. */,
-		"outDir": "./dist" /* Specify an output folder for all emitted files. */,
-		"removeComments": true /* Disable emitting comments. */,
-		/* ... */
-		"noEmitOnError": true /* Disable emitting files if any type checking errors are reported. */,
-		/* ... */
+    /* Emit */
+    /* ... */
+    "sourceMap": true /* Create source map files for emitted JavaScript files. */,
+    "outDir": "./dist" /* Specify an output folder for all emitted files. */,
+    "removeComments": true /* Disable emitting comments. */,
+    /* ... */
+    "noEmitOnError": true /* Disable emitting files if any type checking errors are reported. */,
+    /* ... */
 
-		/* Interop Constraints */
-		/* ... */
-		"esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
-		/* ... */
-		"forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
+    /* Interop Constraints */
+    /* ... */
+    "esModuleInterop": true /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */,
+    /* ... */
+    "forceConsistentCasingInFileNames": true /* Ensure that casing is correct in imports. */,
 
-		/* Type Checking */
-		"strict": true /* Enable all strict type-checking options. */,
-		/* ... */
-		"noImplicitReturns": true /* Enable error reporting for codepaths that do not explicitly return in a function. */,
-		/* ... */
-		"noImplicitOverride": true /* Ensure overriding members in derived classes are marked with an override modifier. */,
-		/* ... */
-		"allowUnreachableCode": true /* Disable error reporting for unreachable code. */,
+    /* Type Checking */
+    "strict": true /* Enable all strict type-checking options. */,
+    /* ... */
+    "noImplicitReturns": true /* Enable error reporting for codepaths that do not explicitly return in a function. */,
+    /* ... */
+    "noImplicitOverride": true /* Ensure overriding members in derived classes are marked with an override modifier. */,
+    /* ... */
+    "allowUnreachableCode": true /* Disable error reporting for unreachable code. */,
 
-		/* Completeness */
-		/* ... */
-		"skipLibCheck": true /* Skip type checking all .d.ts files. */
-	}
+    /* Completeness */
+    /* ... */
+    "skipLibCheck": true /* Skip type checking all .d.ts files. */
+  },
+  "exclude": [
+    "tests/**/*",
+    "**/*.test.ts"
+  ] /* Ignores test files during TypeScript compilation. */
 }
 ```
 
-### chat-history.json
+### chat-history.json (Deprecated)
 
 The chatbot utilizes a JSON file containing historical records of previously entered queries and responses, except for specific directives: `exit` or `quit`.
 Should this file (i.e., `chat-history.json`) not exist, a new one will be created with all entered queries and their respective responses.
