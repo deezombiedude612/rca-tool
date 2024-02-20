@@ -15,7 +15,7 @@ async function main() {
     },
   ];
 
-  let userPrompt = "readCrashes"; // preset user prompt to call readCrashes() on launch
+  let userPrompt = "readCrashes"; // initialize user prompt to call readCrashes() on launch
 
   // enter quit to exit
   while (["quit", "exit"].includes(userPrompt.toLowerCase())) {
