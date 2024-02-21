@@ -31,7 +31,7 @@ export default function saveSession(messages: ChatCompletionMessageParam[]) {
       JSON.stringify(messages),
       { flag: "w+" },
     );
-    console.log(`Saved session as ${sessionFileName}.`);
+    console.log(`\nSaved session as "${sessionFileName}".`);
   } catch (err) {
     console.log("Unable to save session: " + err);
   }
