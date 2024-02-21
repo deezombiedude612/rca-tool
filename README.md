@@ -3,6 +3,7 @@
 _In partial fulfilment of the requirements for SE6005 Capstone Project, a core subject under Master of Science in Cyber Security (MSCS) in Nanyang Technological University (NTU), Singapore._
 
 This is a CLI Root Cause Analysis chatbot tool written using TypeScript in a Node.js environment.
+The tool utilizes OpenAI's API to analyze a set of files containing stack traces belonging to a software crash, and determining the root cause of what caused the crash.
 
 ## Pre-requisites
 
@@ -22,7 +23,7 @@ node -v
 For best experience, you will require **TypeScript**.
 `package.json` indicates TypeScript as a project dependency; you should be able to install it alongside any other required dependencies using `npm i`.
 
-This project was developed with TypeScript 1.6.
+This project was developed with TypeScript 5.3.3.
 Check your TypeScript version using the following Terminal command:
 
 ```shell
@@ -31,7 +32,7 @@ tsc -v
 
 ## Setup
 
-1. Obtain an OpenAI API secret key from [`https://platform.openai.com/account/api-keys`](`https://platform.openai.com/account/api-keys`).
+1. Obtain an OpenAI API secret key from [`https://platform.openai.com/account/api-keys`](https://platform.openai.com/account/api-keys).
 2. Create a file named `.env` and add the following:
 
    ```
@@ -47,22 +48,25 @@ tsc -v
    |- crashes         (contains stack trace files to analyze)
    |- dist/           (JavaScript code, appears after compiling the TypeScript source code)
    |- node_modules/   (appears after finishing Step 3)
+   |- samples/        (contains full stack trace outputs from fuzzing software crashes of varying CVEs)
    |- src/            (contains TypeScript source code)
       |- components/
          |- functions.ts      (to contain executable functions based on user prompts)
+         |- index.ts
          |- lib/
             |- getNewUserPrompt.ts
             |- getReadLimit.ts
             |- index.ts
             |- saveSession.ts
       |- config/
+         |- index.ts
          |- open-ai.ts
       |- index.ts
-   |- sessions       (contains JSON logs of prompts and responses involved in previous sessions)
-   |- tests          (unit test files, to populate as number of functions involved increases)
+   |- sessions/      (contains JSON logs of prompts and responses involved in previous sessions)
+   |- tests/         (unit test files, to populate as number of functions involved increases)
       |- functions.test.ts
       |- getReadLimit.test.ts
-   |- .env
+   |- .env           (to prepare on your own)
    |- .gitignore
    |- .prettierrc.json
    |- chat-history.json
@@ -78,14 +82,14 @@ tsc -v
    npm i
    ```
 
-4. Run the bot using the following shell command in the project folder.
-
-   This involves a 2-step process: first, the TypeScript code from `src/` is compiled into JavaScript code, which will be stored as JavaScript files in `dist/`.
-   Then, those JavaScript files are run under the Node.js environment.
+4. Run the chatbot using the following shell command in the project folder.
 
    ```shell
    npm run ce
    ```
+
+   This involves a 2-step process: first, the TypeScript code from `src/` is compiled into JavaScript code, which will be stored as JavaScript files in `dist/`.
+   Then, those JavaScript files are run under the Node.js environment.
 
    You may also choose to compile and run them in the 2-step process as shown:
 
@@ -95,6 +99,7 @@ tsc -v
    ```
 
    Alternatively, if you choose to run the chatbot without recompiling, just run Step 2.
+   You will need to ensure that there exists a set of compiled JS files first, though.
 
    ```shell
    node dist/index.js
@@ -119,6 +124,11 @@ WRITE of size 1 at 0x602000003033 thread T0
 
 2. You will be asked how many stack trace files are to be analyzed (due to how token limits are implemented in GPT).
    The number of stack traces analyzed will be limited by either the entered number or the number of provided stack traces, whichever is smaller.
+
+   - Since a token limit exists (currently at `10,000`), there is no hard limit on the maximum number of stack trace files that can be analyzed in one go.
+     This number is dependent on how many tokens each of the stack trace file's contents will use up.
+     To gauge how many tokens your stack trace file's contents will take up, refer to [OpenAI's tokenizer](https://platform.openai.com/tokenizer).
+   - Also, the order of which stack trace files are read first is determined solely by their names in alphabetical order.
 
 3. Upon receiving this response, you may pursue one of several course of actions:
    - **A follow-up prompt (to clarify received response from earlier, etc.):**
@@ -190,23 +200,3 @@ Should `tsconfig.json` not be made readily available for you, run `tsc --init` i
   ] /* Ignores test files during TypeScript compilation. */
 }
 ```
-
-### chat-history.json (Deprecated)
-
-The chatbot utilizes a JSON file containing historical records of previously entered queries and responses, except for specific directives: `exit` or `quit`.
-Should this file (i.e., `chat-history.json`) not exist, a new one will be created with all entered queries and their respective responses.
-
-**NOTE:** This file will be remade if it is found to be corrupted or unreadable.
-
-`chat-history.json` will contain an array of objects with a structure based on the `ChatCompletionMessageParam` type as defined by `openai`.
-Each structure comprises a message
-
-- indicating a first instruction to the system (i.e., `ChatCompletionSystemMessageParam`),
-
-or generated
-
-- by the user (i.e., `ChatCompletionUserMessageParam`),
-- by ChatGPT/the assistant (i.e., `ChatCompletionAssistantMessageParam`), or
-- when a tool/function is invoked (i.e., `ChatCompletionToolMessageParam` or `ChatCompletionFunctionMessageParam`)
-
-Refer to `node_modules/openai/src/resources/chat/completions.ts` for the defined interfaces making up the `ChatCompletionMessageParam` type.
