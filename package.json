@@ -1,33 +1,33 @@
 {
-	"name": "rca-tool",
-	"version": "1.0.0",
-	"description": "Root Cause Analysis Tool by HENG HIAN WEE",
-	"main": "index.js",
-	"scripts": {
-		"compile": "tsc",
-		"exec": "node dist/index.js",
-		"clean": "rm -rf dist",
-		"ce": "npm run clean; npm run compile && npm run exec",
-		"test": "vitest",
-		"test:ui": "vitest --ui",
-		"coverage": "vitest run --coverage",
-		"format": "prettier src/ --write"
-	},
-	"keywords": [],
-	"author": "deezombiedude",
-	"license": "MIT",
-	"dependencies": {
-		"@types/readline-sync": "^1.4.8",
-		"dotenv": "^16.3.1",
-		"openai": "^4.24.1",
-		"readline-sync": "^1.4.10"
-	},
-	"devDependencies": {
-		"@types/node": "^20.10.6",
-		"@vitest/coverage-v8": "^1.3.0",
-		"@vitest/ui": "^1.3.0",
-		"prettier": "^3.2.5",
-		"typescript": "^5.3.3",
-		"vitest": "^1.3.0"
-	}
+  "name": "rca-tool",
+  "version": "1.0.0",
+  "description": "Root Cause Analysis Chatbot Tool by HENG HIAN WEE",
+  "main": "index.js",
+  "scripts": {
+    "compile": "tsc",
+    "exec": "node dist/index.js",
+    "clean": "rm -rf dist",
+    "ce": "npm run clean; npm run compile && npm run exec",
+    "test": "vitest",
+    "test:ui": "vitest --ui",
+    "coverage": "vitest run --coverage",
+    "format": "prettier src/ --write"
+  },
+  "keywords": [],
+  "author": "deezombiedude",
+  "license": "MIT",
+  "dependencies": {
+    "@types/readline-sync": "^1.4.8",
+    "dotenv": "^16.3.1",
+    "openai": "^4.24.1",
+    "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.6",
+    "@vitest/coverage-v8": "^1.3.0",
+    "@vitest/ui": "^1.3.0",
+    "prettier": "^3.2.5",
+    "typescript": "^5.3.3",
+    "vitest": "^1.3.0"
+  }
 }
