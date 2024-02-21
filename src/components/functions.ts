@@ -13,7 +13,7 @@ export function readCrashes() {
     // console.log(fs.readdirSync("../crashes"));
 
     crashFiles.slice(0, readCountLimit).forEach((crashFile) => {
-      crashInputs += `\nStack trace ${crashFile}`;
+      crashInputs += `\n${crashFile}`;
       crashInputs += "\n```\n";
       crashInputs += fs.readFileSync(`${crashesDir}/${crashFile}`, "utf-8");
       crashInputs += "\n```\n";
