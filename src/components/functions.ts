@@ -1,5 +1,4 @@
 import * as fs from "fs";
-import { ChatCompletionTool } from "openai/resources";
 import { getReadLimit } from "./lib";
 
 export function readCrashes() {
@@ -28,21 +27,3 @@ export function readCrashes() {
     crashInputs
   );
 }
-
-// for calling API with user input
-export const tools: ChatCompletionTool[] = [
-  {
-    type: "function",
-    function: {
-      name: "readCrashes",
-      description:
-        "Read stack traces to diagnose root cause of program crashes",
-      parameters: {},
-    },
-  },
-];
-
-// ChatGPT arguments to call function
-export const availableFunctions = {
-  readCrashes: readCrashes,
-};

@@ -1,7 +1,11 @@
 import { ChatCompletionMessageParam } from "openai/resources";
 import { ChatCompletionCreateParamsBase } from "openai/resources/chat/completions";
-import { availableFunctions, tools } from "./components/functions";
-import { getNewUserPrompt, saveSession } from "./components/lib";
+import {
+  availableFunctions,
+  getNewUserPrompt,
+  saveSession,
+  tools,
+} from "./components";
 import openai from "./config/open-ai";
 
 async function main() {
@@ -10,8 +14,6 @@ async function main() {
     {
       role: "system",
       content: "Perform function requests for the user.",
-      // content:
-      // 	"You will be provided fuzzing results for a software crash, determine the root cause of the software crash using the readCrashes function.",
     },
   ];
 
