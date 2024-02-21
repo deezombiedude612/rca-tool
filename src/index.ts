@@ -65,7 +65,7 @@ async function main() {
 
     // console.log(res.choices);
     res.choices.length < 2 && console.log(res.choices[0].message.content);
-    if (res.choices.length === 2) {
+    if (res.choices.length >= 2) {
       console.log("There are more than one responses:");
       res.choices.forEach((resObject, index) => {
         console.log(`\nResponse ${index}:`);
