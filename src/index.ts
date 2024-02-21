@@ -35,7 +35,7 @@ async function main() {
     // Step 2: Check if ChatGPT wants to use a function
     if (chat.choices[0].message.tool_calls) {
       // Step 3: Use ChatGPT arguments to call function (refer to `availableFunctions` in `functions.ts)`
-      messages.push(chat.choices[0].message); // extend conversation with assistant's reply
+      messages.push(chat.choices[0].message); // extend conversation with assistant's reply (which invokes a tool_call object)
       const toolCall = chat.choices[0].message.tool_calls[0];
       const functionName = toolCall.function.name;
       const functionToCall =
