@@ -24,7 +24,7 @@ export function readCrashes() {
   }
 
   return (
-    "What is the main root cause of the software crash from the following stack traces?\n" +
+    "What is the root cause(s) of the software crash producing the following stack traces?\n" +
     crashInputs
   );
 }
