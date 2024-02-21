@@ -3,20 +3,20 @@ import { ChatCompletionTool } from "openai/resources";
 import { getReadLimit } from "./lib";
 
 export function readCrashes() {
-  // const CRASHES_DIR = "../crashes";
-  const CRASHES_DIR = "./crashes";
+  // const crashesDir = "../crashes";
+  const crashesDir = "./crashes";
   let crashInputs = "";
 
   try {
     const readCountLimit = getReadLimit();
 
-    const CRASH_FILES = fs.readdirSync(CRASHES_DIR);
+    const crashFiles = fs.readdirSync(crashesDir);
     // console.log(fs.readdirSync("../crashes"));
 
-    CRASH_FILES.slice(0, readCountLimit).forEach((crashFile) => {
+    crashFiles.slice(0, readCountLimit).forEach((crashFile) => {
       crashInputs += `\nStack trace ${crashFile}`;
       crashInputs += "\n```\n";
-      crashInputs += fs.readFileSync(`${CRASHES_DIR}/${crashFile}`, "utf-8");
+      crashInputs += fs.readFileSync(`${crashesDir}/${crashFile}`, "utf-8");
       crashInputs += "\n```\n";
     });
   } catch (err) {
