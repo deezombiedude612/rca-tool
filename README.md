@@ -200,3 +200,15 @@ Should `tsconfig.json` not be made readily available for you, run `tsc --init` i
   ] /* Ignores test files during TypeScript compilation. */
 }
 ```
+
+### Disclaimer
+
+As OpenAI states in the typical ChatGPT interface, it's only right that we put this here too.
+
+> "ChatGPT can make mistakes. Consider checking important information."
+
+Feel free to regenerate your analysis results by entering `readCrashes` when the chatbot asks for another response!
+This tool was created with learning and education in mind, so do not hesitate to consult second opinions from here or through another source.
+
+Remember, large language models (LLMs) like ChatGPT are not perfect, but helping them be as perfect can be is where all of you can come in.
+In time, hopefully, these efforts can help garner more productive tools or greater capabilities to existing ones like this one here!
