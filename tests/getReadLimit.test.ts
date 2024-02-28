@@ -1,10 +1,15 @@
-import { describe, expect, it } from "vitest";
+import { describe, expect, it, vi } from "vitest";
 import { getReadLimit } from "../src/components/lib";
 
 describe("getReadLimit", () => {
   it("should only set read limit as integer values", () => {
-    const result = getReadLimit();
+    const question = vi.fn();
 
-    expect(result === parseInt(result.toString())).toBe(true);
+    const limit = 3;
+    question.mockReturnValue(limit);
+
+    const result = getReadLimit();
+    // expect(result === parseInt(result.toString())).toBe(true);
+    expect(limit === parseInt(result.toString())).toBe(true);
   });
 });

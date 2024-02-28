@@ -1,4 +1,4 @@
-import readlineSync from "readline-sync";
+import { question } from "readline-sync";
 
 export default async function getNewUserPrompt() {
   let userPrompt = "";
@@ -7,7 +7,7 @@ export default async function getNewUserPrompt() {
     console.log(
       "\nEnter 'exit' or 'quit' to exit the chatbot, or 'readCrashes' to reanalyze the crash's stack trace files again.",
     );
-    userPrompt = readlineSync.question("Enter next prompt >> ").trim();
+    userPrompt = question("Enter next prompt >> ").trim();
   } while (userPrompt === "");
 
   return userPrompt;
