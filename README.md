@@ -228,7 +228,7 @@ Each stack trace output was saved into a .txt file.
 For example,
 
 ```zsh
-./php_fuzz inputs/frashes/id%3A000050 > 50.txt
+./php_fuzz inputs/frashes/id%3A000050 &> 50.txt
 ```
 
 ### Disclaimer
