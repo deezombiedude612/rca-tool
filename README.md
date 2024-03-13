@@ -201,6 +201,36 @@ Should `tsconfig.json` not be made readily available for you, run `tsc --init` i
 }
 ```
 
+### Stack Trace Output Sample Pool
+
+Stack traces from the following CVEs were used in testing this tool; the command used to generate each one in the sample pool of stack traces are included.
+
+Here, status refers to one of 2 values: **Control** (equal stack trace outputs) and **Variable** (varying stack trace outputs).
+
+<!--
+** Control Pool **
+CVE-2020-7060:  11_php_2020-7060
+CVE-2023-31722: 12_nasm_2023-31722
+
+** Test Pool **
+CVE-2021-20284: 20_nm-new_2021-20284
+CVE-2022-44370: 13_nasm_2022-44370
+-->
+
+| CVE Enumeration | Command                                                |  Status  | # Stack Traces |
+| --------------- | ------------------------------------------------------ | :------: | :------------: |
+| CVE-2020-7060   | `./php_fuzz inputs/crashes/id%3A000000`                | Control  |       51       |
+| CVE-2023-31722  | `./nasm_fuzz -f elf64 inputs/crashes/id%3A000000`      | Control  |       69       |
+| CVE-2021-20284  | `./nm-new_fuzz --synthetic inputs/crashes/id%3A000000` | Variable |      109       |
+| CVE-2022-44370  | `./nasm_fuzz -M inputs/crashes/id%3A000000`            | Variable |      210       |
+
+Each stack trace output was saved into a .txt file.
+For example,
+
+```zsh
+./php_fuzz inputs/frashes/id%3A000050 > 50.txt
+```
+
 ### Disclaimer
 
 As OpenAI states in the typical ChatGPT interface, it's only right that we put this here too.
