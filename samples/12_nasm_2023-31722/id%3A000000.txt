@@ -1,0 +1,16 @@
+nasm: fatal: unable to open input file `inputs/crashes/id%3A000000' No such file or directory
+
+=================================================================
+==13333==ERROR: LeakSanitizer: detected memory leaks
+
+Direct leak of 27 byte(s) in 1 object(s) allocated from:
+    #0 0x7f6b6630d808 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cc:144
+    #1 0x564dc6410abd in nasm_malloc nasmlib/alloc.c:55
+    #2 0x564dc6410abd in nasm_strdup nasmlib/alloc.c:117
+
+Direct leak of 16 byte(s) in 1 object(s) allocated from:
+    #0 0x7f6b6630d808 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cc:144
+    #1 0x564dc6410b3d in nasm_malloc nasmlib/alloc.c:55
+    #2 0x564dc6410b3d in nasm_strndup nasmlib/alloc.c:127
+
+SUMMARY: AddressSanitizer: 43 byte(s) leaked in 2 allocation(s).

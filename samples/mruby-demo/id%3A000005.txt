@@ -1,0 +1,46 @@
+=================================================================
+==13851==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x6250000140a0 at pc 0x564438d5081c bp 0x7ffe5f3338a0 sp 0x7ffe5f333890
+READ of size 16 at 0x6250000140a0 thread T0
+    #0 0x564438d5081b in mrb_vm_exec /home1/gejingquan/projects/conti-demo-framework/evaluation/mruby/src/vm.c:1208
+    #1 0x564438d5929e in mrb_vm_run /home1/gejingquan/projects/conti-demo-framework/evaluation/mruby/src/vm.c:947
+    #2 0x564438e07e77 in mrb_load_exec /home1/gejingquan/projects/conti-demo-framework/evaluation/mruby/mrbgems/mruby-compiler/core/parse.y:5835
+    #3 0x564438bb3864 in main /home1/gejingquan/projects/conti-demo-framework/evaluation/mruby/mrbgems/mruby-bin-mruby/tools/mruby/mruby.c:227
+    #4 0x7f0874629d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #5 0x7f0874629e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #6 0x564438bb715d in _start (/home/deezombiedude/rca/mruby-demo/mruby_fuzz+0x3515d)
+
+Address 0x6250000140a0 is a wild pointer.
+SUMMARY: AddressSanitizer: heap-buffer-overflow /home1/gejingquan/projects/conti-demo-framework/evaluation/mruby/src/vm.c:1208 in mrb_vm_exec
+Shadow bytes around the buggy address:
+  0x0c4a7fffa7c0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c4a7fffa7d0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c4a7fffa7e0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c4a7fffa7f0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c4a7fffa800: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x0c4a7fffa810: fa fa fa fa[fa]fa fa fa fa fa fa fa fa fa fa fa
+  0x0c4a7fffa820: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c4a7fffa830: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c4a7fffa840: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c4a7fffa850: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c4a7fffa860: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==13851==ABORTING

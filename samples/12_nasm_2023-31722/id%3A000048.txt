@@ -1,0 +1,70 @@
+inputs/crashes/id%3A000048,src%3A000000,op%3Ahavoc,rep%3A8:2: error: parser: instruction expected
+inputs/crashes/id%3A000048,src%3A000000,op%3Ahavoc,rep%3A8:5: error: label or instruction expected at start of line
+inputs/crashes/id%3A000048,src%3A000000,op%3Ahavoc,rep%3A8:6: error: parser: instruction expected
+inputs/crashes/id%3A000048,src%3A000000,op%3Ahavoc,rep%3A8:7: warning: label alone on a line without a colon might be in error [-w+label-orphan]
+inputs/crashes/id%3A000048,src%3A000000,op%3Ahavoc,rep%3A8:9: error: label or instruction expected at start of line
+inputs/crashes/id%3A000048,src%3A000000,op%3Ahavoc,rep%3A8:10: error: parser: instruction expected
+inputs/crashes/id%3A000048,src%3A000000,op%3Ahavoc,rep%3A8:13: warning: unterminated %[...] construct (missing `]') [-w+pp-open-brackets]
+inputs/crashes/id%3A000048,src%3A000000,op%3Ahavoc,rep%3A8:13: error: `%0': not in a macro call
+inputs/crashes/id%3A000048,src%3A000000,op%3Ahavoc,rep%3A8:13: error: `%1': not in a macro call
+inputs/crashes/id%3A000048,src%3A000000,op%3Ahavoc,rep%3A8:13: error: `%2': not in a macro call
+inputs/crashes/id%3A000048,src%3A000000,op%3Ahavoc,rep%3A8:13: error: `%3': not in a macro call
+inputs/crashes/id%3A000048,src%3A000000,op%3Ahavoc,rep%3A8:13: error: `%4': not in a macro call
+inputs/crashes/id%3A000048,src%3A000000,op%3Ahavoc,rep%3A8:13: error: `%5': not in a macro call
+inputs/crashes/id%3A000048,src%3A000000,op%3Ahavoc,rep%3A8:13: warning: label alone on a line without a colon might be in error [-w+label-orphan]
+inputs/crashes/id%3A000048,src%3A000000,op%3Ahavoc,rep%3A8:14: error: `%ENDMACRO': not defining a macro
+inputs/crashes/id%3A000048,src%3A000000,op%3Ahavoc,rep%3A8:15: warning: label alone on a line without a colon might be in error [-w+label-orphan]
+inputs/crashes/id%3A000048,src%3A000000,op%3Ahavoc,rep%3A8:25: error: parser: instruction expected
+inputs/crashes/id%3A000048,src%3A000000,op%3Ahavoc,rep%3A8:26: error: parser: instruction expected
+inputs/crashes/id%3A000048,src%3A000000,op%3Ahavoc,rep%3A8:27: warning: dropping trailing empty parameter in call to multi-line macro `mmac_plus' [-w+pp-macro-params-legacy]
+=================================================================
+==19866==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60200000367c at pc 0x555da51e0978 bp 0x7fff76d94510 sp 0x7fff76d94500
+READ of size 4 at 0x60200000367c thread T0
+    #0 0x555da51e0977 in expand_mmacro asm/preproc.c:6863
+    #1 0x555da51e0977 in pp_tokline asm/preproc.c:7811
+    #2 0x555da51e0977 in pp_getline asm/preproc.c:7823
+    #3 0x555da512ca71 in assemble_file asm/nasm.c:1719
+    #4 0x555da5126686 in main asm/nasm.c:716
+    #5 0x7f33c3629d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #6 0x7f33c3629e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #7 0x555da5129bbd in _start (/home/deezombiedude/rca/nasm-demo/12_nasm_2023-31722/nasm_fuzz+0x134bbd)
+
+0x60200000367c is located 0 bytes to the right of 12-byte region [0x602000003670,0x60200000367c)
+allocated by thread T0 here:
+    #0 0x7f33c3b0da06 in __interceptor_calloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cc:153
+    #1 0x555da5135832 in nasm_calloc nasmlib/alloc.c:72
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow asm/preproc.c:6863 in expand_mmacro
+Shadow bytes around the buggy address:
+  0x0c047fff8670: fa fa fd fd fa fa fd fd fa fa fd fa fa fa fd fa
+  0x0c047fff8680: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa
+  0x0c047fff8690: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fd
+  0x0c047fff86a0: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa
+  0x0c047fff86b0: fa fa 00 02 fa fa fd fd fa fa 00 02 fa fa fd fa
+=>0x0c047fff86c0: fa fa fd fa fa fa 04 fa fa fa 00 06 fa fa 00[04]
+  0x0c047fff86d0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff86e0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff86f0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8700: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8710: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==19866==ABORTING

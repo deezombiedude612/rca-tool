@@ -1,0 +1,58 @@
+./nm-new_fuzz: inputs/crashes/id%3A000057,src%3A000000,op%3Ahavoc,rep%3A4,+cov: version count (8) does not match symbol count (6)
+./nm-new_fuzz: inputs/crashes/id%3A000057,src%3A000000,op%3Ahavoc,rep%3A4,+cov(.rel.dyn): relocation 7 has invalid symbol index 6
+./nm-new_fuzz: inputs/crashes/id%3A000057,src%3A000000,op%3Ahavoc,rep%3A4,+cov: unsupported relocation type 0x7c
+./nm-new_fuzz: inputs/crashes/id%3A000057,src%3A000000,op%3Ahavoc,rep%3A4,+cov: unsupported relocation type 0xd4
+=================================================================
+==16266==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x604000000278 at pc 0x5618f283832d bp 0x7fff99e83250 sp 0x7fff99e83240
+READ of size 8 at 0x604000000278 thread T0
+    #0 0x5618f283832c in _bfd_elf_slurp_secondary_reloc_section /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf.c:12694
+    #1 0x5618f29bc030 in bfd_elf32_slurp_reloc_table /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elfcode.h:1606
+    #2 0x5618f28108c5 in _bfd_elf_canonicalize_dynamic_reloc /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf.c:8667
+    #3 0x5618f275ab8d in _bfd_x86_elf_get_synthetic_symtab /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elfxx-x86.c:2111
+    #4 0x5618f298c588 in elf_i386_get_synthetic_symtab /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf32-i386.c:4293
+    #5 0x5618f263f63d in display_rel_file /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/binutils/nm.c:1183
+    #6 0x5618f264327b in display_file /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/binutils/nm.c:1403
+    #7 0x5618f263588f in main /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/binutils/nm.c:1891
+    #8 0x7f40f4e29d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #9 0x7f40f4e29e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #10 0x5618f2637a8d in _start (/home/deezombiedude/rca/20_nm-new_2021-20284/nm-new_fuzz+0xa1a8d)
+
+0x60400000027b is located 0 bytes to the right of 43-byte region [0x604000000250,0x60400000027b)
+allocated by thread T0 here:
+    #0 0x7f40f530d808 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cc:144
+    #1 0x7f40f4e3de4c  (/lib/x86_64-linux-gnu/libc.so.6+0x3de4c)
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf.c:12694 in _bfd_elf_slurp_secondary_reloc_section
+Shadow bytes around the buggy address:
+  0x0c087fff7ff0: 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00
+  0x0c087fff8000: fa fa 00 00 00 00 01 fa fa fa fd fd fd fd fd fa
+  0x0c087fff8010: fa fa fd fd fd fd fd fd fa fa fd fd fd fd fd fa
+  0x0c087fff8020: fa fa fd fd fd fd fd fa fa fa fd fd fd fd fd fa
+  0x0c087fff8030: fa fa 00 00 00 00 00 00 fa fa fd fd fd fd fd fd
+=>0x0c087fff8040: fa fa fd fd fd fd fd fd fa fa 00 00 00 00 00[03]
+  0x0c087fff8050: fa fa 00 00 00 00 00 fa fa fa fd fd fd fd fd fa
+  0x0c087fff8060: fa fa 00 00 00 00 00 00 fa fa fd fd fd fd fd fd
+  0x0c087fff8070: fa fa fd fd fd fd fd fa fa fa fd fd fd fd fd fd
+  0x0c087fff8080: fa fa fd fd fd fd fd fa fa fa fd fd fd fd fd fd
+  0x0c087fff8090: fa fa fd fd fd fd fd fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==16266==ABORTING

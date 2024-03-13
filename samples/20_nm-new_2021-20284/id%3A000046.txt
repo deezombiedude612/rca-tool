@@ -1,0 +1,24 @@
+./nm-new_fuzz: inputs/crashes/id%3A000046,src%3A000000,op%3Ahavoc,rep%3A4(.rel.dyn): relocation 6 has invalid symbol index 1301
+./nm-new_fuzz: inputs/crashes/id%3A000046,src%3A000000,op%3Ahavoc,rep%3A4(.rel.dyn): relocation 7 has invalid symbol index 918034
+./nm-new_fuzz: inputs/crashes/id%3A000046,src%3A000000,op%3Ahavoc,rep%3A4: unsupported relocation type 0x7c
+./nm-new_fuzz: inputs/crashes/id%3A000046,src%3A000000,op%3Ahavoc,rep%3A4: unsupported relocation type 0xd4
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==16207==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000018 (pc 0x5591d5497fa9 bp 0x62100000bf98 sp 0x7fffed331b50 T0)
+==16207==The signal is caused by a WRITE memory access.
+==16207==Hint: address points to the zero page.
+    #0 0x5591d5497fa8 in _bfd_elf_slurp_secondary_reloc_section /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf.c:12694
+    #1 0x5591d561c030 in bfd_elf32_slurp_reloc_table /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elfcode.h:1606
+    #2 0x5591d54708c5 in _bfd_elf_canonicalize_dynamic_reloc /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf.c:8667
+    #3 0x5591d53bab8d in _bfd_x86_elf_get_synthetic_symtab /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elfxx-x86.c:2111
+    #4 0x5591d55ec588 in elf_i386_get_synthetic_symtab /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf32-i386.c:4293
+    #5 0x5591d529f63d in display_rel_file /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/binutils/nm.c:1183
+    #6 0x5591d52a327b in display_file /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/binutils/nm.c:1403
+    #7 0x5591d529588f in main /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/binutils/nm.c:1891
+    #8 0x7f510de29d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #9 0x7f510de29e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #10 0x5591d5297a8d in _start (/home/deezombiedude/rca/20_nm-new_2021-20284/nm-new_fuzz+0xa1a8d)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf.c:12694 in _bfd_elf_slurp_secondary_reloc_section
+==16207==ABORTING

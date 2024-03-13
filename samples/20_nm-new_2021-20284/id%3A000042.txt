@@ -1,0 +1,22 @@
+./nm-new_fuzz: inputs/crashes/id%3A000042,src%3A000000,op%3Ahavoc,rep%3A8: unsupported relocation type 0x7c
+./nm-new_fuzz: inputs/crashes/id%3A000042,src%3A000000,op%3Ahavoc,rep%3A8: unsupported relocation type 0xd4
+AddressSanitizer:DEADLYSIGNAL
+=================================================================
+==16143==ERROR: AddressSanitizer: SEGV on unknown address 0x000000000018 (pc 0x564b504f0fa9 bp 0x62100000bf98 sp 0x7fff1877c670 T0)
+==16143==The signal is caused by a WRITE memory access.
+==16143==Hint: address points to the zero page.
+    #0 0x564b504f0fa8 in _bfd_elf_slurp_secondary_reloc_section /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf.c:12694
+    #1 0x564b50675030 in bfd_elf32_slurp_reloc_table /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elfcode.h:1606
+    #2 0x564b504c98c5 in _bfd_elf_canonicalize_dynamic_reloc /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf.c:8667
+    #3 0x564b50413b8d in _bfd_x86_elf_get_synthetic_symtab /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elfxx-x86.c:2111
+    #4 0x564b50645588 in elf_i386_get_synthetic_symtab /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf32-i386.c:4293
+    #5 0x564b502f863d in display_rel_file /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/binutils/nm.c:1183
+    #6 0x564b502fc27b in display_file /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/binutils/nm.c:1403
+    #7 0x564b502ee88f in main /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/binutils/nm.c:1891
+    #8 0x7f01f5c29d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #9 0x7f01f5c29e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #10 0x564b502f0a8d in _start (/home/deezombiedude/rca/20_nm-new_2021-20284/nm-new_fuzz+0xa1a8d)
+
+AddressSanitizer can not provide additional info.
+SUMMARY: AddressSanitizer: SEGV /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf.c:12694 in _bfd_elf_slurp_secondary_reloc_section
+==16143==ABORTING

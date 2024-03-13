@@ -1,0 +1,54 @@
+./nm-new_fuzz: inputs/crashes/id%3A000090,src%3A000007,op%3Ahavoc,rep%3A8: no group info for section '.dynamic'
+./nm-new_fuzz: inputs/crashes/id%3A000090,src%3A000007,op%3Ahavoc,rep%3A8: no group info for section '.dynamic'
+./nm-new_fuzz: inputs/crashes/id%3A000090,src%3A000007,op%3Ahavoc,rep%3A8: unsupported relocation type 0x7c
+./nm-new_fuzz: inputs/crashes/id%3A000090,src%3A000007,op%3Ahavoc,rep%3A8: unsupported relocation type 0xd4
+=================================================================
+==16682==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x6060000006a8 at pc 0x56459972832d bp 0x7fffbb3d6420 sp 0x7fffbb3d6410
+READ of size 8 at 0x6060000006a8 thread T0
+    #0 0x56459972832c in _bfd_elf_slurp_secondary_reloc_section /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf.c:12694
+    #1 0x5645998ac030 in bfd_elf32_slurp_reloc_table /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elfcode.h:1606
+    #2 0x5645997008c5 in _bfd_elf_canonicalize_dynamic_reloc /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf.c:8667
+    #3 0x56459964ab8d in _bfd_x86_elf_get_synthetic_symtab /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elfxx-x86.c:2111
+    #4 0x56459987c588 in elf_i386_get_synthetic_symtab /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf32-i386.c:4293
+    #5 0x56459952f63d in display_rel_file /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/binutils/nm.c:1183
+    #6 0x56459953327b in display_file /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/binutils/nm.c:1403
+    #7 0x56459952588f in main /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/binutils/nm.c:1891
+    #8 0x7fdd73c29d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #9 0x7fdd73c29e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #10 0x564599527a8d in _start (/home/deezombiedude/rca/20_nm-new_2021-20284/nm-new_fuzz+0xa1a8d)
+
+Address 0x6060000006a8 is a wild pointer.
+SUMMARY: AddressSanitizer: heap-buffer-overflow /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf.c:12694 in _bfd_elf_slurp_secondary_reloc_section
+Shadow bytes around the buggy address:
+  0x0c0c7fff8080: 00 00 04 fa fa fa fa fa fd fd fd fd fd fd fd fa
+  0x0c0c7fff8090: fa fa fa fa fd fd fd fd fd fd fd fa fa fa fa fa
+  0x0c0c7fff80a0: fd fd fd fd fd fd fd fa fa fa fa fa fd fd fd fd
+  0x0c0c7fff80b0: fd fd fd fa fa fa fa fa 00 00 00 00 00 00 00 00
+  0x0c0c7fff80c0: fa fa fa fa fd fd fd fd fd fd fd fd fa fa fa fa
+=>0x0c0c7fff80d0: fa fa fa fa fa[fa]fa fa fa fa fa fa fa fa fa fa
+  0x0c0c7fff80e0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c0c7fff80f0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c0c7fff8100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c0c7fff8110: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c0c7fff8120: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==16682==ABORTING

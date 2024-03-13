@@ -1,0 +1,83 @@
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:2: error: parser: instruction expected
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:5: error: label or instruction expected at start of line
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:6: error: parser: instruction expected
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:8: error: label or instruction expected at start of line
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:11: warning: unterminated %[...] construct (missing `]') [-w+pp-open-brackets]
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:11: error: `%0': not in a macro call
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:11: error: `%1': not in a macro call
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:11: error: `%2': not in a macro call
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:11: error: `%3': not in a macro call
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:11: error: `%4': not in a macro call
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:11: error: `%5': not in a macro call
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:11: warning: label alone on a line without a colon might be in error [-w+label-orphan]
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:12: error: `%ENDMACRO': not defining a macro
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:13: error: parser: instruction expected
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:14: error: parser: instruction expected
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:29: error: parser: instruction expected
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:30: error: parser: instruction expected
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:31: error: parser: instruction expected
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:18: ... from macro `mmac_plus' defined here
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:31: error: label or instruction expected at start of line
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:21: ... from macro `mmac_plus' defined here
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:31: error: label or instruction expected at start of line
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:23: ... from macro `mmac_plus' defined here
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:31: error: label or instruction expected at start of line
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:24: ... from macro `mmac_plus' defined here
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:31: error: parser: instruction expected
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:25: ... from macro `mmac_plus' defined here
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:31: warning: label alone on a line without a colon might be in error [-w+label-orphan]
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:26: ... from macro `mmac_plus' defined here
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:31: error: parser: instruction expected
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:27: ... from macro `mmac_plus' defined here
+inputs/crashes/id%3A000020,src%3A000000,op%3Ahavoc,rep%3A4:32: warning: dropping trailing empty parameter in call to multi-line macro `mmac_plus' [-w+pp-macro-params-legacy]
+=================================================================
+==19112==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x6020000039bc at pc 0x55559150a978 bp 0x7ffc4f6e18e0 sp 0x7ffc4f6e18d0
+READ of size 4 at 0x6020000039bc thread T0
+    #0 0x55559150a977 in expand_mmacro asm/preproc.c:6863
+    #1 0x55559150a977 in pp_tokline asm/preproc.c:7811
+    #2 0x55559150a977 in pp_getline asm/preproc.c:7823
+    #3 0x555591456a71 in assemble_file asm/nasm.c:1719
+    #4 0x555591450686 in main asm/nasm.c:716
+    #5 0x7fcb32229d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #6 0x7fcb32229e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #7 0x555591453bbd in _start (/home/deezombiedude/rca/nasm-demo/12_nasm_2023-31722/nasm_fuzz+0x134bbd)
+
+0x6020000039bc is located 0 bytes to the right of 12-byte region [0x6020000039b0,0x6020000039bc)
+allocated by thread T0 here:
+    #0 0x7fcb3270da06 in __interceptor_calloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cc:153
+    #1 0x55559145f832 in nasm_calloc nasmlib/alloc.c:72
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow asm/preproc.c:6863 in expand_mmacro
+Shadow bytes around the buggy address:
+  0x0c047fff86e0: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa
+  0x0c047fff86f0: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa
+  0x0c047fff8700: fa fa fd fd fa fa fd fd fa fa fd fd fa fa 02 fa
+  0x0c047fff8710: fa fa fd fd fa fa 07 fa fa fa fd fd fa fa fd fa
+  0x0c047fff8720: fa fa fd fa fa fa fd fd fa fa fd fa fa fa fd fa
+=>0x0c047fff8730: fa fa 02 fa fa fa 00[04]fa fa fa fa fa fa fa fa
+  0x0c047fff8740: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8750: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8760: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8770: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8780: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==19112==ABORTING

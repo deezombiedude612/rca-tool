@@ -1,0 +1,62 @@
+/home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/php-src/Zend/zend_alloc.c:593:46: runtime error: left shift of 1 by 63 places cannot be represented in type 'long int'
+/home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/php-src/ext/mbstring/libmbfl/filters/mbfilter_big5.c:201:24: runtime error: index 5 out of bounds for type 'short unsigned int [5][4]'
+/home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/php-src/ext/mbstring/libmbfl/filters/mbfilter_big5.c:201:27: runtime error: load of address 0x55b4e529062c with insufficient space for an object of type 'short unsigned int'
+0x55b4e529062c: note: pointer points here
+  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00  00 00 00 00 00 00 00 00
+              ^ 
+=================================================================
+==8997==ERROR: AddressSanitizer: global-buffer-overflow on address 0x55b4e529062c at pc 0x55b4dc18dc01 bp 0x7ffde13024c0 sp 0x7ffde13024b0
+READ of size 2 at 0x55b4e529062c thread T0
+    #0 0x55b4dc18dc00 in mbfl_filt_conv_big5_wchar /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/php-src/ext/mbstring/libmbfl/filters/mbfilter_big5.c:201
+    #1 0x55b4dc499e55 in mbfl_buffer_converter_feed2 /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/php-src/ext/mbstring/libmbfl/mbfl/mbfilter.c:284
+    #2 0x55b4dc499e55 in mbfl_buffer_converter_feed /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/php-src/ext/mbstring/libmbfl/mbfl/mbfilter.c:261
+    #3 0x55b4dc499e55 in mbfl_buffer_converter_feed_result /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/php-src/ext/mbstring/libmbfl/mbfl/mbfilter.c:348
+    #4 0x55b4dc667159 in php_mb_convert_encoding /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/php-src/ext/mbstring/mbstring.c:3255
+    #5 0x55b4dc680f99 in zif_mb_convert_encoding /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/php-src/ext/mbstring/mbstring.c:3399
+    #6 0x55b4e2aedc1e in ZEND_DO_ICALL_SPEC_RETVAL_USED_HANDLER /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/php-src/Zend/zend_vm_execute.h:621
+    #7 0x55b4e2aedc1e in execute_ex /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/php-src/Zend/zend_vm_execute.h:59778
+    #8 0x55b4e2c83358 in zend_execute /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/php-src/Zend/zend_vm_execute.h:63804
+    #9 0x55b4dfe48ef8 in zend_execute_scripts /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/php-src/Zend/zend.c:1498
+    #10 0x55b4def1b1f7 in php_execute_script /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/php-src/main/main.c:2599
+    #11 0x55b4e2cc71f7 in do_cli /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/php-src/sapi/cli/php_cli.c:1011
+    #12 0x55b4d740211c in main /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/php-src/sapi/cli/php_cli.c:1403
+    #13 0x7fa56ba29d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #14 0x7fa56ba29e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #15 0x55b4d7403b7d in _start (/home/deezombiedude/rca/11_php_2020-7060/php_fuzz+0x3a0db7d)
+
+0x55b4e529062c is located 4 bytes to the right of global variable 'cp950_pua_tbl' defined in '/home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/php-src/ext/mbstring/libmbfl/filters/mbfilter_big5.c:133:23' (0x55b4e5290600) of size 40
+0x55b4e529062c is located 52 bytes to the left of global variable '*.Lubsan_data150' defined in '/home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/php-src/ext/mbstring/libmbfl/filters/mbfilter_big5.c' (0x55b4e5290660) of size 32
+SUMMARY: AddressSanitizer: global-buffer-overflow /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/php-src/ext/mbstring/libmbfl/filters/mbfilter_big5.c:201 in mbfl_filt_conv_big5_wchar
+Shadow bytes around the buggy address:
+  0x0ab71ca4a070: 00 00 00 00 f9 f9 f9 f9 00 00 00 01 f9 f9 f9 f9
+  0x0ab71ca4a080: 00 00 00 07 f9 f9 f9 f9 00 00 00 00 01 f9 f9 f9
+  0x0ab71ca4a090: f9 f9 f9 f9 00 00 00 00 01 f9 f9 f9 f9 f9 f9 f9
+  0x0ab71ca4a0a0: 00 00 00 00 01 f9 f9 f9 f9 f9 f9 f9 00 00 00 00
+  0x0ab71ca4a0b0: 02 f9 f9 f9 f9 f9 f9 f9 00 02 f9 f9 f9 f9 f9 f9
+=>0x0ab71ca4a0c0: 00 00 00 00 00[f9]f9 f9 f9 f9 f9 f9 00 00 00 00
+  0x0ab71ca4a0d0: f9 f9 f9 f9 00 00 f9 f9 f9 f9 f9 f9 00 00 00 00
+  0x0ab71ca4a0e0: f9 f9 f9 f9 00 00 f9 f9 f9 f9 f9 f9 00 00 00 00
+  0x0ab71ca4a0f0: f9 f9 f9 f9 00 00 00 00 f9 f9 f9 f9 00 00 00 00
+  0x0ab71ca4a100: f9 f9 f9 f9 00 00 f9 f9 f9 f9 f9 f9 00 00 00 00
+  0x0ab71ca4a110: f9 f9 f9 f9 00 00 f9 f9 f9 f9 f9 f9 00 00 00 00
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==8997==ABORTING

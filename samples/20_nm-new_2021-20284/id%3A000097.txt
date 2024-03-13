@@ -1,0 +1,89 @@
+./nm-new_fuzz: warning: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov has a section extending past end of file
+./nm-new_fuzz: warning: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov has a section extending past end of file
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 62 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 77 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 116 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 1048704 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 159 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 166 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 180 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 197 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 206 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 225 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 244 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 266 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 282 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 310 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 409 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 332 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 350 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 276 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 357 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 379 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 407 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 420 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 435 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 448 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 463 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 492 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 192 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 413 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 508 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 515 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 527 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 532 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 554 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 566 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: invalid string offset 502 >= 48 for section `.gnu.version_r'
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: unsupported relocation type 0x7c
+./nm-new_fuzz: inputs/crashes/id%3A000097,src%3A000008,op%3Ahavoc,rep%3A4,+cov: unsupported relocation type 0xd4
+=================================================================
+==16729==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x6060000006a8 at pc 0x555fea90a32d bp 0x7ffd96fc8150 sp 0x7ffd96fc8140
+READ of size 8 at 0x6060000006a8 thread T0
+    #0 0x555fea90a32c in _bfd_elf_slurp_secondary_reloc_section /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf.c:12694
+    #1 0x555feaa8e030 in bfd_elf32_slurp_reloc_table /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elfcode.h:1606
+    #2 0x555fea8e28c5 in _bfd_elf_canonicalize_dynamic_reloc /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf.c:8667
+    #3 0x555fea82cb8d in _bfd_x86_elf_get_synthetic_symtab /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elfxx-x86.c:2111
+    #4 0x555feaa5e588 in elf_i386_get_synthetic_symtab /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf32-i386.c:4293
+    #5 0x555fea71163d in display_rel_file /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/binutils/nm.c:1183
+    #6 0x555fea71527b in display_file /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/binutils/nm.c:1403
+    #7 0x555fea70788f in main /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/binutils/nm.c:1891
+    #8 0x7fdbdb029d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #9 0x7fdbdb029e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #10 0x555fea709a8d in _start (/home/deezombiedude/rca/20_nm-new_2021-20284/nm-new_fuzz+0xa1a8d)
+
+Address 0x6060000006a8 is a wild pointer.
+SUMMARY: AddressSanitizer: heap-buffer-overflow /home1/gejingquan/projects/RCAfuzz/RCA_v2/evaluation/binutils-gdb/bfd/elf.c:12694 in _bfd_elf_slurp_secondary_reloc_section
+Shadow bytes around the buggy address:
+  0x0c0c7fff8080: 00 00 04 fa fa fa fa fa fd fd fd fd fd fd fd fa
+  0x0c0c7fff8090: fa fa fa fa fd fd fd fd fd fd fd fa fa fa fa fa
+  0x0c0c7fff80a0: fd fd fd fd fd fd fd fa fa fa fa fa fd fd fd fd
+  0x0c0c7fff80b0: fd fd fd fa fa fa fa fa 00 00 00 00 00 00 00 00
+  0x0c0c7fff80c0: fa fa fa fa fd fd fd fd fd fd fd fd fa fa fa fa
+=>0x0c0c7fff80d0: fa fa fa fa fa[fa]fa fa fa fa fa fa fa fa fa fa
+  0x0c0c7fff80e0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c0c7fff80f0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c0c7fff8100: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c0c7fff8110: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c0c7fff8120: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==16729==ABORTING

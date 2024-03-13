@@ -1,0 +1,81 @@
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:2: error: label or instruction expected at start of line
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:3: error: parser: instruction expected
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:5: error: label or instruction expected at start of line
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:6: error: parser: instruction expected
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:9: warning: unterminated %[...] construct (missing `]') [-w+pp-open-brackets]
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:9: error: `%0': not in a macro call
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:9: error: `%1': not in a macro call
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:9: error: `%2': not in a macro call
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:9: error: `%3': not in a macro call
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:9: error: `%4': not in a macro call
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:9: error: `%5': not in a macro call
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:9: warning: label alone on a line without a colon might be in error [-w+label-orphan]
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:10: error: `%ENDMACRO': not defining a macro
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:11: error: parser: instruction expected
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:12: error: parser: instruction expected
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:16: warning: unterminated string (missing ``') [-w+pp-open-string]
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:18: warning: label alone on a line without a colon might be in error [-w+label-orphan]
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:19: error: label or instruction expected at start of line
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:21: error: `%0': not in a macro call
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:21: error: `%1': not in a macro call
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:21: error: `%2': not in a macro call
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:22: error: `%4': not in a macro call
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:22: error: `%5': not in a macro call
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:22: warning: label alone on a line without a colon might be in error [-w+label-orphan]
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:23: error: parser: instruction expected
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:24: error: parser: instruction expected
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:25: error: parser: instruction expected
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:26: error: parser: instruction expected
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:16: ... from macro `mmac_plus' defined here
+inputs/crashes/id%3A000032,src%3A000000,op%3Ahavoc,rep%3A8:27: warning: dropping trailing empty parameter in call to multi-line macro `mmac_plus' [-w+pp-macro-params-legacy]
+=================================================================
+==19708==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x60200000381c at pc 0x5584cf4fd978 bp 0x7ffd427796f0 sp 0x7ffd427796e0
+READ of size 4 at 0x60200000381c thread T0
+    #0 0x5584cf4fd977 in expand_mmacro asm/preproc.c:6863
+    #1 0x5584cf4fd977 in pp_tokline asm/preproc.c:7811
+    #2 0x5584cf4fd977 in pp_getline asm/preproc.c:7823
+    #3 0x5584cf449a71 in assemble_file asm/nasm.c:1719
+    #4 0x5584cf443686 in main asm/nasm.c:716
+    #5 0x7f21c2e29d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #6 0x7f21c2e29e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #7 0x5584cf446bbd in _start (/home/deezombiedude/rca/nasm-demo/12_nasm_2023-31722/nasm_fuzz+0x134bbd)
+
+0x60200000381c is located 0 bytes to the right of 12-byte region [0x602000003810,0x60200000381c)
+allocated by thread T0 here:
+    #0 0x7f21c330da06 in __interceptor_calloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cc:153
+    #1 0x5584cf452832 in nasm_calloc nasmlib/alloc.c:72
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow asm/preproc.c:6863 in expand_mmacro
+Shadow bytes around the buggy address:
+  0x0c047fff86b0: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa
+  0x0c047fff86c0: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa
+  0x0c047fff86d0: fa fa fd fa fa fa fd fa fa fa fd fa fa fa fd fa
+  0x0c047fff86e0: fa fa fd fa fa fa fd fa fa fa fd fd fa fa 00 02
+  0x0c047fff86f0: fa fa fd fa fa fa fd fa fa fa 04 fa fa fa 05 fa
+=>0x0c047fff8700: fa fa 00[04]fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8710: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8720: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8730: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8740: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8750: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==19708==ABORTING

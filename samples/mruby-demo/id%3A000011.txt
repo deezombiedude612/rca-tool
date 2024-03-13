@@ -1,0 +1,51 @@
+=================================================================
+==13905==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x62500000ef50 at pc 0x56136e8e481c bp 0x7ffd225ed100 sp 0x7ffd225ed0f0
+READ of size 16 at 0x62500000ef50 thread T0
+    #0 0x56136e8e481b in mrb_vm_exec /home1/gejingquan/projects/conti-demo-framework/evaluation/mruby/src/vm.c:1208
+    #1 0x56136e8ed29e in mrb_vm_run /home1/gejingquan/projects/conti-demo-framework/evaluation/mruby/src/vm.c:947
+    #2 0x56136e99be77 in mrb_load_exec /home1/gejingquan/projects/conti-demo-framework/evaluation/mruby/mrbgems/mruby-compiler/core/parse.y:5835
+    #3 0x56136e747864 in main /home1/gejingquan/projects/conti-demo-framework/evaluation/mruby/mrbgems/mruby-bin-mruby/tools/mruby/mruby.c:227
+    #4 0x7f521be29d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #5 0x7f521be29e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #6 0x56136e74b15d in _start (/home/deezombiedude/rca/mruby-demo/mruby_fuzz+0x3515d)
+
+0x62500000ef50 is located 1776 bytes to the right of 8032-byte region [0x62500000c900,0x62500000e860)
+allocated by thread T0 here:
+    #0 0x7f521c30dc3e in __interceptor_realloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cc:163
+    #1 0x56136e7d05e5 in mrb_realloc_simple /home1/gejingquan/projects/conti-demo-framework/evaluation/mruby/src/gc.c:206
+    #2 0x56136e7d05e5 in mrb_realloc /home1/gejingquan/projects/conti-demo-framework/evaluation/mruby/src/gc.c:220
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow /home1/gejingquan/projects/conti-demo-framework/evaluation/mruby/src/vm.c:1208 in mrb_vm_exec
+Shadow bytes around the buggy address:
+  0x0c4a7fff9d90: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c4a7fff9da0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c4a7fff9db0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c4a7fff9dc0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c4a7fff9dd0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+=>0x0c4a7fff9de0: fa fa fa fa fa fa fa fa fa fa[fa]fa fa fa fa fa
+  0x0c4a7fff9df0: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c4a7fff9e00: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c4a7fff9e10: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c4a7fff9e20: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c4a7fff9e30: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==13905==ABORTING

@@ -1,0 +1,52 @@
+inputs/crashes/id%3A000000,orig%3Apoc: warning: default output file same as input, using `nasm.out' for output
+ [-w+other]
+=================================================================
+==11852==ERROR: AddressSanitizer: heap-buffer-overflow on address 0x602000003033 at pc 0x556321736838 bp 0x7ffe4d212270 sp 0x7ffe4d212260
+WRITE of size 1 at 0x602000003033 thread T0
+    #0 0x556321736837 in quote_for_pmake asm/nasm.c:856
+    #1 0x556321736837 in quote_for_pmake asm/nasm.c:784
+    #2 0x556321732055 in emit_dependencies asm/nasm.c:397
+    #3 0x556321732055 in main asm/nasm.c:738
+    #4 0x7f1d84829d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #5 0x7f1d84829e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #6 0x556321734c6d in _start (/home/deezombiedude/rca/13_nasm_2022-44370/nasm_fuzz+0x11bc6d)
+
+0x602000003033 is located 0 bytes to the right of 3-byte region [0x602000003030,0x602000003033)
+allocated by thread T0 here:
+    #0 0x7f1d84d0d808 in __interceptor_malloc ../../../../src/libsanitizer/asan/asan_malloc_linux.cc:144
+    #1 0x556321740e44 in nasm_malloc nasmlib/alloc.c:55
+
+SUMMARY: AddressSanitizer: heap-buffer-overflow asm/nasm.c:856 in quote_for_pmake
+Shadow bytes around the buggy address:
+  0x0c047fff85b0: fa fa fd fd fa fa fd fd fa fa fd fa fa fa fd fd
+  0x0c047fff85c0: fa fa fd fd fa fa fd fa fa fa fd fd fa fa fd fd
+  0x0c047fff85d0: fa fa fd fd fa fa fd fd fa fa fd fd fa fa fd fd
+  0x0c047fff85e0: fa fa fd fd fa fa fd fd fa fa fd fd fa fa fd fd
+  0x0c047fff85f0: fa fa fd fd fa fa fd fd fa fa fd fd fa fa fd fa
+=>0x0c047fff8600: fa fa 02 fa fa fa[03]fa fa fa fa fa fa fa fa fa
+  0x0c047fff8610: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8620: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8630: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8640: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+  0x0c047fff8650: fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa fa
+Shadow byte legend (one shadow byte represents 8 application bytes):
+  Addressable:           00
+  Partially addressable: 01 02 03 04 05 06 07 
+  Heap left redzone:       fa
+  Freed heap region:       fd
+  Stack left redzone:      f1
+  Stack mid redzone:       f2
+  Stack right redzone:     f3
+  Stack after return:      f5
+  Stack use after scope:   f8
+  Global redzone:          f9
+  Global init order:       f6
+  Poisoned by user:        f7
+  Container overflow:      fc
+  Array cookie:            ac
+  Intra object redzone:    bb
+  ASan internal:           fe
+  Left alloca redzone:     ca
+  Right alloca redzone:    cb
+  Shadow gap:              cc
+==11852==ABORTING
