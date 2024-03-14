@@ -210,11 +210,11 @@ Here, status refers to one of 2 values: **Control** (equal stack trace outputs) 
 <!--
 ** Control Pool **
 CVE-2020-7060:  11_php_2020-7060
-CVE-2023-31722: 12_nasm_2023-31722
+CVE-2021-20284: 20_nm-new_2021-20284
 
 ** Test Pool **
-CVE-2021-20284: 20_nm-new_2021-20284
 CVE-2022-44370: 13_nasm_2022-44370
+CVE-2023-31722: 12_nasm_2023-31722
 -->
 
 | CVE Enumeration | Command                                                |  Status  | # Stack Traces |
