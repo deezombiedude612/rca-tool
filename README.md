@@ -220,9 +220,9 @@ CVE-2022-44370: 13_nasm_2022-44370
 | CVE Enumeration | Command                                                |  Status  | # Stack Traces |
 | --------------- | ------------------------------------------------------ | :------: | :------------: |
 | CVE-2020-7060   | `./php_fuzz inputs/crashes/id%3A000000`                | Control  |       51       |
-| CVE-2023-31722  | `./nasm_fuzz -f elf64 inputs/crashes/id%3A000000`      | Control  |       69       |
-| CVE-2021-20284  | `./nm-new_fuzz --synthetic inputs/crashes/id%3A000000` | Variable |      109       |
+| CVE-2021-20284  | `./nm-new_fuzz --synthetic inputs/crashes/id%3A000000` | Control  |      109       |
 | CVE-2022-44370  | `./nasm_fuzz -M inputs/crashes/id%3A000000`            | Variable |      210       |
+| CVE-2023-31722  | `./nasm_fuzz -f elf64 inputs/crashes/id%3A000000`      | Variable |       69       |
 
 Each stack trace output was saved into a .txt file.
 For example,
