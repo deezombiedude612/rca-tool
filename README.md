@@ -5,6 +5,10 @@ _In partial fulfilment of the requirements for SE6005 Capstone Project, a core s
 This is a CLI Root Cause Analysis chatbot tool written using TypeScript in a Node.js environment.
 The tool utilizes OpenAI's API to analyze a set of files containing stack traces belonging to a software crash, and determining the root cause of what caused the crash.
 
+## Abstract
+
+Large Language Models (LLMs) have seen massive and widespread adoption by the public since late 2022/early 2023, arguably pioneered by OpenAI's ChatGPT. Amidst ongoing debates, research, enthusiasm and skepticism surrounding LLMs, their inner mechanisms and more, their application in various programs and tools are still a forefront concern in finding out how their capabilities can bring benefit to where it counts in various industries, jobs, and workflows. This capstone project aims to answer the question regarding whether a root cause analysis (RCA) tool for software crashes in the form of a chatbot with the inner workings of an LLM can serve as a practical alternative to existing RCA schemes. Comparisons between a developed RCA tool utilizing OpenAI's GPT API is made against the other RCA schemes based on two metrics, namely accuracy of analysis results with minimal number of crash results required, and ease of understanding based on the tool's response.
+
 ## Pre-requisites
 
 ### Node.js
@@ -210,19 +214,19 @@ Here, status refers to one of 2 values: **Control** (equal stack trace outputs) 
 <!--
 ** Control Pool **
 CVE-2020-7060:  11_php_2020-7060
-CVE-2021-20284: 20_nm-new_2021-20284
+CVE-2023-31722: 12_nasm_2023-31722
 
 ** Test Pool **
 CVE-2022-44370: 13_nasm_2022-44370
-CVE-2023-31722: 12_nasm_2023-31722
+CVE-2021-20284: 20_nm-new_2021-20284
 -->
 
 | CVE Enumeration | Command                                                |  Status  | # Stack Traces |
 | --------------- | ------------------------------------------------------ | :------: | :------------: |
 | CVE-2020-7060   | `./php_fuzz inputs/crashes/id%3A000000`                | Control  |       51       |
-| CVE-2021-20284  | `./nm-new_fuzz --synthetic inputs/crashes/id%3A000000` | Control  |      109       |
+| CVE-2023-31722  | `./nasm_fuzz -f elf64 inputs/crashes/id%3A000000`      | Control  |       69       |
+| CVE-2021-20284  | `./nm-new_fuzz --synthetic inputs/crashes/id%3A000000` | Variable |      109       |
 | CVE-2022-44370  | `./nasm_fuzz -M inputs/crashes/id%3A000000`            | Variable |      210       |
-| CVE-2023-31722  | `./nasm_fuzz -f elf64 inputs/crashes/id%3A000000`      | Variable |       69       |
 
 Each stack trace output was saved into a .txt file.
 For example,
