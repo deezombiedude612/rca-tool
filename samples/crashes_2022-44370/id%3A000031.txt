@@ -1,0 +1,12 @@
+==11909==ERROR: AddressSanitizer: stack-use-after-scope on address 0x7ffe0d1f4780 at pc 0x563c937b592d bp 0x7ffe0d1f45f0 sp 0x7ffe0d1f45e0
+WRITE of size 8 at 0x7ffe0d1f4780 thread T0
+    #0 0x563c937b592c in expand_mmac_params asm/preproc.c:5373
+    #1 0x563c937b1a8e in expand_mmac_params asm/preproc.c:5337
+    #2 0x563c937b1a8e in expand_mmac_params asm/preproc.c:5337
+    #3 0x563c937b1a8e in expand_mmac_params asm/preproc.c:5337
+    #4 0x563c937d3c4b in pp_tokline asm/preproc.c:7258
+    #5 0x563c937d3c4b in pp_getline asm/preproc.c:7328
+    #6 0x563c93727b29 in main asm/nasm.c:628
+    #7 0x7f3939629d8f  (/lib/x86_64-linux-gnu/libc.so.6+0x29d8f)
+    #8 0x7f3939629e3f in __libc_start_main (/lib/x86_64-linux-gnu/libc.so.6+0x29e3f)
+    #9 0x563c9372ac6d in _start (/home/deezombiedude/rca/13_nasm_2022-44370/nasm_fuzz+0x11bc6d)
