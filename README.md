@@ -9,6 +9,8 @@ The tool utilizes OpenAI's API to analyze a set of files containing stack traces
 
 Large Language Models (LLMs) have seen massive and widespread adoption by the public since late 2022/early 2023, arguably pioneered by OpenAI's ChatGPT. Amidst ongoing debates, research, enthusiasm and skepticism surrounding LLMs, their inner mechanisms and more, their application in various programs and tools are still a forefront concern in finding out how their capabilities can bring benefit to where it counts in various industries, jobs, and workflows. This capstone project aims to answer the question regarding whether a root cause analysis (RCA) tool for software crashes in the form of a chatbot with the inner workings of an LLM can serve as a practical alternative to existing RCA schemes. Comparisons between a developed RCA tool utilizing OpenAI's GPT API is made against the other RCA schemes based on two metrics, namely accuracy of analysis results with minimal number of crash results required, and ease of understanding based on the tool's response.
 
+**Index Keywords:** large language model (LLM), root cause analysis, chatbots, OpenAI, ChatGPT, security testing, software testing, software crashes
+
 ## Pre-requisites
 
 ### Node.js
